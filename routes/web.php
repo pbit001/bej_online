@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\DosareDeschiseController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,12 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
 Route::get('organizations', [OrganizationsController::class, 'index'])
     ->name('organizations')
     ->middleware('auth');
+  
+Route::get('DosareDeschise', [DosareDeschiseController::class, 'index'])
+    ->name('organizations')
+    ->middleware('auth');    
+
+        
 
 Route::get('organizations/create', [OrganizationsController::class, 'create'])
     ->name('organizations.create')
