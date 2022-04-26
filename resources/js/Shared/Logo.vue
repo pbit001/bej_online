@@ -1,0 +1,1 @@
+<img :src="/public/images/logo1.png" alt="Logo">
