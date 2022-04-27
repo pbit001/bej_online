@@ -122,6 +122,9 @@
             <td class="border-t">
                 {{ organization.Suma_TotalaRamasa }}
             </td>
+            <td class="border-t">
+                <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy(organization.id)">Delete</button>
+            </td>
           </tr>
           <tr v-if="DosareDeschise.data.length === 0">
             <td class="px-6 py-4 border-t" colspan="4">No data found.</td>
@@ -153,16 +156,7 @@ export default {
   },
   layout: Layout,
   props: {
-    filters: Object,
     DosareDeschise: Object,
-  },
-  data() {
-    return {
-      form: {
-        search: this.filters.search,
-        trashed: this.filters.trashed,
-      },
-    }
   },
   watch: {
     form: {
@@ -175,6 +169,11 @@ export default {
   methods: {
     reset() {
       this.form = mapValues(this.form, () => null)
+    },
+    destroy(id) {
+      if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
+        this.$inertia.delete(`/DosareDeschise/${id}`)
+      }
     },
   },
 }

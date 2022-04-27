@@ -102,6 +102,11 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
+    destroy(id) {
+      if (confirm('Are you sure you want to delete this organization?')) {
+        this.$inertia.delete(`/DosareDeschise/${id}`)
+      }
+    },
   },
 }
 </script>

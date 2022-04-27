@@ -18,7 +18,6 @@ class DosareDeschiseController extends Controller
     {
         
         return Inertia::render('DosareDeschise/Index', [
-            'filters' => Request::all('search', 'trashed'),
             'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->paginate(10)
                 ->through(fn ($DosareDeschise) => [
                     'id' => $DosareDeschise->id,
@@ -53,7 +52,7 @@ class DosareDeschiseController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('DosareDeschise/Create');
     }
 
     /**
@@ -64,7 +63,49 @@ class DosareDeschiseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        Request::validate([
+            'Nume_Debitor' => ['required'],
+            'CNP_CUI' => ['required'],
+            'Adresa_Debitor' => ['required'],
+            'Judet_Debitor' => ['required'],
+            'Primarie_Debitor' => ['required'],
+            'Nume_Creditor' => ['required'],
+            'Adresa_Creditor' => ['required'],
+            'DataTitlu_Executoriu' => ['required'],
+            'Suma_CreditorInitiala' => ['required'],
+            'Taxa' => ['required'],
+            'Cheltuieli' => ['required'],
+        ]);
+
+        $input = Request::all();
+        
+        $addedDosareDeschise = DosareDeschise::create([
+            'Nr_Dosar'              => $input['Nr_Dosar'],
+            'Nume_Debitor'          => $input['Nume_Debitor'],
+            'Prenume_Debitor'       => $input['Prenume_Debitor'],        
+            'CNP_CUI'               => $input['CNP_CUI'],
+            'Adresa_Debitor'        => $input['Adresa_Debitor'], 
+            'Judet_Debitor'         => $input['Judet_Debitor'],
+            'Primarie_Debitor'      => $input['Primarie_Debitor'],
+            'CoDebitor_Girant'      => $input['CoDebitor_Girant'],
+            'Nume_Creditor'         => $input['Nume_Creditor'],
+            'Adresa_Creditor'       => $input['Adresa_Creditor'],
+            'Titlu_Executoriu'      => $input['Titlu_Executoriu'],
+            'DataTitlu_Executoriu'  => $input['DataTitlu_Executoriu'],
+            'Suma_CreditorInitiala' => $input['Suma_CreditorInitiala'],
+            'Judecatoria'           => $input['Judecatoria'],
+            'Procent_Onorariu'      => $input['Procent_Onorariu'],        
+            'Taxa'                  => $input['Taxa'],
+            'Cheltuieli'            => $input['Cheltuieli'],
+            'Data_Introducerii'     => date("Y.m.d"),
+            'Stadiu_Dosar'          => $input['Stadiu_Dosar'],
+            'Avans_Onorariu'        => $input['Avans_Onorariu'],
+            'ID_User'               => Auth::user()->id,
+        ]);
+
+
+        return Redirect::route('DosareDeschise')->with('success', 'Dosare Deschise Inregistrare Dosar.');
     }
 
     /**
@@ -109,6 +150,7 @@ class DosareDeschiseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $del = DosareDeschise::where('id', $id)->delete();
+        return Redirect::route('DosareDeschise')->with('success', 'Dosare Deschise deleted.');
     }
 }

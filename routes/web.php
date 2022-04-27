@@ -77,10 +77,20 @@ Route::get('organizations', [OrganizationsController::class, 'index'])
     ->middleware('auth');
   
 Route::get('DosareDeschise', [DosareDeschiseController::class, 'index'])
-    ->name('organizations')
+    ->name('DosareDeschise')
     ->middleware('auth');    
 
-        
+Route::get('DosareDeschise/create', [DosareDeschiseController::class, 'create'])
+    ->name('DosareDeschise.create')
+    ->middleware('auth');
+ 
+ Route::post('DosareDeschise', [DosareDeschiseController::class, 'store'])
+    ->name('DosareDeschise.store')
+    ->middleware('auth');  
+
+Route::delete('DosareDeschise/{id}', [DosareDeschiseController::class, 'destroy'])
+    ->name('DosareDeschise.destroy')
+    ->middleware('auth');
 
 Route::get('organizations/create', [OrganizationsController::class, 'create'])
     ->name('organizations.create')
