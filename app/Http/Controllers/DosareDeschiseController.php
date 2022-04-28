@@ -18,7 +18,7 @@ class DosareDeschiseController extends Controller
     {
         
         return Inertia::render('DosareDeschise/Index', [
-            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->paginate(10)
+            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->where('Stadiu_Dosar', 'deschis')->paginate(10)
                 ->through(fn ($DosareDeschise) => [
                     'id' => $DosareDeschise->id,
                     'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
