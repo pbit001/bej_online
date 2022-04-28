@@ -36,6 +36,7 @@
             <th class="pb-4 pt-6 px-6">Data Interogare ANAF </th>
             <th class="pb-4 pt-6 px-6">Data Poprire Banca</th>
             <th class="pb-4 pt-6 px-6">Stadiu Dosar</th>
+            <th class="pb-4 pt-6 px-6">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -124,6 +125,9 @@
             </td>
             <td class="border-t">
                 <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy(organization.id)">Delete</button>
+                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+                Edit
+              </Link>
             </td>
           </tr>
           <tr v-if="DosareDeschise.data.length === 0">

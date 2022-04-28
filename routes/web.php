@@ -88,6 +88,14 @@ Route::get('DosareDeschise/create', [DosareDeschiseController::class, 'create'])
     ->name('DosareDeschise.store')
     ->middleware('auth');  
 
+Route::get('DosareDeschise/{id}/edit', [DosareDeschiseController::class, 'edit'])
+    ->name('DosareDeschise.edit')
+    ->middleware('auth');
+
+Route::put('DosareDeschise/{id}', [DosareDeschiseController::class, 'update'])
+    ->name('DosareDeschise.update')
+    ->middleware('auth');
+
 Route::delete('DosareDeschise/{id}', [DosareDeschiseController::class, 'destroy'])
     ->name('DosareDeschise.destroy')
     ->middleware('auth');
