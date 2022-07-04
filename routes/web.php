@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\IrdosarLogController;
 use App\Http\Controllers\DosareDeschiseController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
@@ -75,30 +76,11 @@ Route::put('users/{user}/restore', [UsersController::class, 'restore'])
 Route::get('organizations', [OrganizationsController::class, 'index'])
     ->name('organizations')
     ->middleware('auth');
-  
-Route::get('DosareDeschise', [DosareDeschiseController::class, 'index'])
-    ->name('DosareDeschise')
-    ->middleware('auth');    
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('irdosarlogs', IrdosarLogController::class);
+    Route::resource('DosareDeschise', DosareDeschiseController::class);
 
-Route::get('DosareDeschise/create', [DosareDeschiseController::class, 'create'])
-    ->name('DosareDeschise.create')
-    ->middleware('auth');
- 
- Route::post('DosareDeschise', [DosareDeschiseController::class, 'store'])
-    ->name('DosareDeschise.store')
-    ->middleware('auth');  
-
-Route::get('DosareDeschise/{id}/edit', [DosareDeschiseController::class, 'edit'])
-    ->name('DosareDeschise.edit')
-    ->middleware('auth');
-
-Route::put('DosareDeschise/{id}', [DosareDeschiseController::class, 'update'])
-    ->name('DosareDeschise.update')
-    ->middleware('auth');
-
-Route::delete('DosareDeschise/{id}', [DosareDeschiseController::class, 'destroy'])
-    ->name('DosareDeschise.destroy')
-    ->middleware('auth');
+});
 
 Route::get('organizations/create', [OrganizationsController::class, 'create'])
     ->name('organizations.create')

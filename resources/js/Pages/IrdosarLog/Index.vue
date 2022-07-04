@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Head title="Dosare Deschise" />
-    <h1 class="mb-8 text-3xl font-bold">Dosare Deschise</h1>
+    <Head title="IRdosare Logs" />
+    <h1 class="mb-8 text-3xl font-bold">Dosare Inchise</h1>
     <div class="flex items-center justify-between mb-6">
       
-      <Link class="btn-indigo" href="/DosareDeschise/create">
+      <Link class="btn-indigo" href="/irdosarlogs/create">
         <span>Create</span>
-        <span class="hidden md:inline">&nbsp;Dosare Deschise</span>
+        <span class="hidden md:inline">&nbsp;Dosare Inchise</span>
       </Link>
     </div>
     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -42,33 +42,33 @@
         <tbody>
           <tr v-for="organization in DosareDeschise.data" :key="organization.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/irdosarlogs/${organization.id}/edit`">
                 Istoric
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/irdosarlogs/${organization.id}/edit`">
                 Obs
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/irdosarlogs/${organization.id}/edit`">
                 Detalii
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/irdosarlogs/${organization.id}/edit`">
                 {{ organization.Nr_Dosar }}
                 <icon v-if="organization.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/irdosarlogs/${organization.id}/edit`" tabindex="-1">
                 {{ organization.Nume_Debitor }}
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/irdosarlogs/${organization.id}/edit`" tabindex="-1">
                 {{ organization.Prenume_Debitor }}
               </Link>
             </td>
@@ -125,7 +125,7 @@
             </td>
             <td class="border-t">
                 <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy(organization.id)">Delete</button>
-                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/irdosarlogs/${organization.id}/edit`">
                 Edit
               </Link>
             </td>
@@ -175,8 +175,8 @@ export default {
       this.form = mapValues(this.form, () => null)
     },
     destroy(id) {
-      if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
-        this.$inertia.delete(`/DosareDeschise/${id}`)
+      if (confirm('Are you sure you want to delete this Dosare Inchise?')) {
+        this.$inertia.delete(`/irdosarlogs/${id}`)
       }
     },
   },

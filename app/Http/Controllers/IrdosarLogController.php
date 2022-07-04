@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\IrdosarLog;
 use App\Models\DosareDeschise;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DosareDeschiseController extends Controller
+
+class IrdosarLogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +18,8 @@ class DosareDeschiseController extends Controller
      */
     public function index()
     {
-        
-        return Inertia::render('DosareDeschise/Index', [
-            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->where('Stadiu_Dosar', 'deschis')->paginate(10)
+        return Inertia::render('IrdosarLog/Index', [
+            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->where('Stadiu_Dosar', 'Inchis')->paginate(10)
                 ->through(fn ($DosareDeschise) => [
                     'id' => $DosareDeschise->id,
                     'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
@@ -52,7 +53,7 @@ class DosareDeschiseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('DosareDeschise/Create');
+        return Inertia::render('IrdosarLog/Create');
     }
 
     /**
@@ -63,7 +64,6 @@ class DosareDeschiseController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
@@ -99,13 +99,14 @@ class DosareDeschiseController extends Controller
             'Taxa'                  => $input['Taxa'],
             'Cheltuieli'            => $input['Cheltuieli'],
             'Data_Introducerii'     => date("Y.m.d"),
-            'Stadiu_Dosar'          => $input['Stadiu_Dosar'],
+            'Stadiu_Dosar'          => 'Inchis',
+
             'Avans_Onorariu'        => $input['Avans_Onorariu'],
             'ID_User'               => Auth::user()->id,
         ]);
 
 
-        return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise Inregistrare Dosar.');
+        return Redirect::route('irdosarlogs.index')->with('success', 'Dosare Deschise Inregistrare Dosar.');
     }
 
     /**
@@ -128,7 +129,7 @@ class DosareDeschiseController extends Controller
     public function edit($id)
     {
         $DosareDeschise = DosareDeschise::where('id', $id)->first();
-        return Inertia::render('DosareDeschise/Edit', [
+        return Inertia::render('IrdosarLog/Edit', [
             'DosareDeschise' => [
                 'id' => $DosareDeschise->id,
                 'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
@@ -149,7 +150,7 @@ class DosareDeschiseController extends Controller
                 'Suma_TrCreditor' => $DosareDeschise->Suma_TrCreditor,
                 'Suma_TrBEJ' => $DosareDeschise->Suma_TrBEJ,
                 'Poprire_Conturi' => $DosareDeschise->Poprire_Conturi,
-                'Stadiu_Dosar' => $DosareDeschise->Stadiu_Dosar,
+                'Stadiu_Dosar' => 'Inchis',
                 'Suma_TotalaRamasa' => $DosareDeschise->Suma_TotalaRamasa,
                 'Judet_Debitor' => $DosareDeschise->Judet_Debitor,
                 'Primarie_Debitor' => $DosareDeschise->Primarie_Debitor,
@@ -172,7 +173,6 @@ class DosareDeschiseController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $request->validate([
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
@@ -206,11 +206,11 @@ class DosareDeschiseController extends Controller
         $DosareDeschise->Procent_Onorariu = $input['Procent_Onorariu'];        
         $DosareDeschise->Taxa = $input['Taxa'];
         $DosareDeschise->Cheltuieli = $input['Cheltuieli'];
-        $DosareDeschise->Stadiu_Dosar = $input['Stadiu_Dosar'];
+        $DosareDeschise->Stadiu_Dosar = 'Inchis';
         $DosareDeschise->Avans_Onorariu = $input['Avans_Onorariu'];
         $DosareDeschise->save();
 
-        return Redirect::route('DosareDeschise')->with('success', 'Dosare Deschise Inregistrare Dosar updated.');
+        return Redirect::route('irdosarlogs')->with('success', 'Dosare Deschise Inregistrare Dosar updated.');
     }
 
     /**
@@ -222,6 +222,6 @@ class DosareDeschiseController extends Controller
     public function destroy($id)
     {
         $del = DosareDeschise::where('id', $id)->delete();
-        return Redirect::route('DosareDeschise')->with('success', 'Dosare Deschise deleted.');
+        return Redirect::route('irdosarlogs')->with('success', 'Dosare Deschise deleted.');
     }
 }
