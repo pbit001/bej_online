@@ -7,6 +7,7 @@ use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
 use App\Http\Controllers\IrdosarLogController;
 use App\Http\Controllers\DosareDeschiseController;
+use App\Http\Controllers\InterogareController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -81,6 +82,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('DosareDeschise', DosareDeschiseController::class);
 
 });
+
+Route::get('interogare', [InterogareController::class, 'index'])
+    ->name('interogare')
+    ->middleware('auth');
+
+Route::post('interogare_data', [InterogareController::class, 'interogare_data'])
+    ->name('interogare_data')
+    ->middleware('auth');    
 
 Route::get('organizations/create', [OrganizationsController::class, 'create'])
     ->name('organizations.create')

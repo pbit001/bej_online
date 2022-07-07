@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class DosareDeschise extends Model
 {
+
+    protected $connection = 'mysql2';
+    protected $table = 'ARTESTEXECUTOR_IRDosar';
+    public $timestamps = false;
+
     use HasFactory;
     protected $fillable = ['Nr_Dosar', 'Nume_Debitor', 'Prenume_Debitor',  'CNP_CUI', 'Nume_Creditor', 'Adresa_Creditor', 'Titlu_Executoriu', 'Suma_CreditorRamasa', 
     'TVA', 'DataEmitere_Interogare', 'DataTitlu_Executoriu', 'Judecatoria', 'Valuta_Credit', 'Firma_Debitor', 'CoDebitor_Girant', 'Suma_TrBEJ', 'Suma_CreditorInitiala',

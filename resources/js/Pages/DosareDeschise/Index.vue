@@ -9,10 +9,10 @@
         <span class="hidden md:inline">&nbsp;Dosare Deschise</span>
       </Link>
     </div>
-    <div class="bg-white rounded-md shadow overflow-x-auto">
-      <table class="w-full whitespace-nowrap">
+    <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
+      <table class="w-full whitespace-nowrap table table-hover table-bordered" id="example">
         <thead>
-          <tr class="text-left font-bold">
+          <tr class="text-left font-bold" >
             <th class="pb-4 pt-6 px-6">Istoric</th>
             <th class="pb-4 pt-6 px-6">Obs</th>
             <th class="pb-4 pt-6 px-6">Detalii</th>
@@ -141,6 +141,15 @@
 </template>
 
 <script>
+
+//Bootstrap and jQuery libraries
+
+import 'jquery/dist/jquery.min.js';
+//Datatable Modules
+import "datatables.net-dt/js/dataTables.dataTables"
+import "datatables.net-dt/css/jquery.dataTables.min.css"
+import $ from 'jquery'; 
+
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Icon from '@/Shared/Icon'
 import pickBy from 'lodash/pickBy'
@@ -162,6 +171,9 @@ export default {
   props: {
     DosareDeschise: Object,
   },
+  mounted(){
+    $('#example').DataTable();
+  },
   watch: {
     form: {
       deep: true,
@@ -181,4 +193,5 @@ export default {
     },
   },
 }
+
 </script>

@@ -12,7 +12,10 @@
     {{-- Ping CRM --}}
     <script src="https://polyfill.io/v3/polyfill.min.js?features=String.prototype.startsWith" defer></script>
 
+    <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css"  rel="stylesheet" />
+
     <script src="{{ mix('/js/app.js') }}" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @inertiaHead
 </head>
 <body class="font-sans leading-none text-gray-700 antialiased">
