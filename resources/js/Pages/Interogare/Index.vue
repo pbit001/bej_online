@@ -107,6 +107,7 @@ export default {
     DosareDeschise: Object,
   },
   mounted(){
+    
     table = $('#example').DataTable({dom: 'Bfrtip',
                                                     select: true,
                                                     lengthMenu: [

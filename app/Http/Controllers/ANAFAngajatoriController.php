@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Imports\ANAFAngajatoriImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use App\Models\ANAFAngajatori;
 
 class ANAFAngajatoriController extends Controller
 {
@@ -20,6 +21,21 @@ class ANAFAngajatoriController extends Controller
         // echo 'here in index';
         // exit;
         $DosareDeschise = "";
+
+        return Inertia::render('Ananfangajatori/Index', [
+            'DosareDeschise' => ANAFAngajatori::orderBy('DOSAR_NR','DESC')->paginate(100)
+                ->through(fn ($DosareDeschise) => [
+                    'DOSAR_NR' => $DosareDeschise->DOSAR_NR,
+                    'CIF_ANGAJATOR' => $DosareDeschise->CIF_ANGAJATOR,
+                    'Denumire_ANGAJATOR' => $DosareDeschise->Denumire_ANGAJATOR,
+                    'SEDIU' => $DosareDeschise->SEDIU,
+                    'AN_RAPORTARE' => $DosareDeschise->AN_RAPORTARE,
+                    'LUNA_RAPORTARE' => $DosareDeschise->LUNA_RAPORTARE,
+                    'Data_Raspuns' => $DosareDeschise->Data_Raspuns,
+                    'Utilizator' => $DosareDeschise->Utilizator,
+                ]),
+        ]);
+
         return Inertia::render('Ananfangajatori/Index', ['DosareDeschise']);
 
     }

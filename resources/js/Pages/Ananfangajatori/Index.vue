@@ -4,7 +4,7 @@
     <h1 class="mb-8 text-3xl font-bold">Import Fisier Angajatori</h1>
     <div class="flex items-center justify-between mb-6">
     </div>
-    <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
+    <div class="bg-white rounded-md shadow" style="padding: 10px;">
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
           <file-input v-model="form.excelfile" :error="form.errors.excelfile" class="pb-8 pr-6 w-full lg:w-1/2" type="file" label="CSV" />
@@ -13,6 +13,60 @@
           <loading-button :loading="form.processing" class="btn-indigo" type="submit">Submit</loading-button>
         </div>
       </form>
+    </div>
+  <br />
+    <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
+      <table class="w-full whitespace-nowrap table table-hover table-bordered" id="ANAFAngajatori_LOG">
+        <thead>
+          <tr class="text-left font-bold">
+            <th class="pb-4 pt-6 px-6">Istoric</th>
+            <th class="pb-4 pt-6 px-6">Nr. Dosar</th>
+            <th class="pb-4 pt-6 px-6">CIF Angajator</th>
+            <th class="pb-4 pt-6 px-6">Denumire Angajator</th>
+            <th class="pb-4 pt-6 px-6">Sediu</th>
+            <th class="pb-4 pt-6 px-6">An Rarportare</th>        
+            <th class="pb-4 pt-6 px-6">Luna Raportare</th>
+            <th class="pb-4 pt-6 px-6">Data Raspuns</th>
+            <th class="pb-4 pt-6 px-6">Utilizator</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="organization in DosareDeschise.data" :key="organization.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+            <td class="border-t">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="``">
+                Istoric
+              </Link>
+            </td>
+            <td class="border-t">
+              {{ organization.DOSAR_NR }}
+            </td>
+            <td class="border-t">
+                {{ organization.CIF_ANGAJATOR }}
+            </td>
+            <td class="border-t">
+              {{ organization.Denumire_ANGAJATOR }}
+            </td>
+            <td class="border-t">
+              {{ organization.SEDIU }}
+            </td>
+            <td class="border-t">
+                {{ organization.AN_RAPORTARE }}
+            </td>
+            <td class="border-t">
+                {{ organization.LUNA_RAPORTARE }}
+            </td>
+            <td class="border-t">
+                {{ organization.Data_Raspuns }}
+            </td>
+            <td class="border-t">
+                {{ organization.Utilizator }}
+            </td>
+          </tr>
+          <tr v-if="DosareDeschise.data.length === 0">
+            <td class="px-6 py-4 border-t" colspan="4">No data found.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     
   </div>
@@ -61,6 +115,10 @@ export default {
   },
   layout: Layout,
   remember: 'form',
+  props: {
+    DosareDeschise: Object,
+  },
+  
   data() {
     return {
       form: this.$inertia.form({
@@ -72,7 +130,33 @@ export default {
     DosareDeschise: Object,
   },
   mounted(){
+    console.log('start of datatable');
+    var table = $('#ANAFAngajatori_LOG').DataTable({  
+        orderCellsTop: true,
+        fixedHeader: true,
+        scrollY: 500,
+        scrollX: true,
+        scrollCollapse: true,
+        orderCellsTop:  true,
+                fixedHeader:    true,
+                "scrollX":      false,
+                select: true,
+        lengthMenu: [
+            [10, 25, 50, -1],
+            ['10 randuri', '25 randuri', '50 randuri', 'Aratat tot']
+        ],
+        buttons: [
+            'pageLength',
+        ],
+        colReorder: true,
+        keys: true,
+        "columnDefs": [{
+                "searchable": false,
+                "orderable": false,
+                "targets": 0,
+            }]
 
+    });
   },
  
   methods: {

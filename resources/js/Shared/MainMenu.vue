@@ -34,6 +34,15 @@
       </Link>
     </div>
 
+    <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/ANAFAngajatori">
+        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('ANAFAngajatori') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('ANAFAngajatori') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Import Fisier Angajatori</div>
+      </Link>
+    </div>
+
+    
+
   </div>
 </template>
 
