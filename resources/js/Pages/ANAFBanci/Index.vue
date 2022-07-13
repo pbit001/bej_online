@@ -117,32 +117,10 @@ export default {
   },
   mounted(){
     console.log('start of datatable');
-    var table = $('#ANAFAngajatori_LOG').DataTable({  
-        orderCellsTop: true,
-        fixedHeader: true,
-        scrollY: 500,
-        scrollX: true,
-        scrollCollapse: true,
-        orderCellsTop:  true,
-                fixedHeader:    true,
-                "scrollX":      false,
-                select: true,
-        lengthMenu: [
-            [10, 25, 50, -1],
-            ['10 randuri', '25 randuri', '50 randuri', 'Aratat tot']
-        ],
-        buttons: [
-            'pageLength',
-        ],
-        colReorder: true,
-        keys: true,
-        "columnDefs": [{
-                "searchable": false,
-                "orderable": false,
-                "targets": 0,
-            }]
-
-    });
+    var table = $('#ANAFAngajatori_LOG').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true
+        });
   },
  
   methods: {
