@@ -9,6 +9,7 @@ use App\Http\Controllers\IrdosarLogController;
 use App\Http\Controllers\DosareDeschiseController;
 use App\Http\Controllers\InterogareController;
 use App\Http\Controllers\ANAFAngajatoriController;
+use App\Http\Controllers\ANAFBanciController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -94,7 +95,15 @@ Route::get('ANAFAngajatori', [ANAFAngajatoriController::class, 'index'])
 
 Route::post('ANAFAngajatori', [ANAFAngajatoriController::class, 'store'])
     ->name('ANAFAngajatori.store')
-    ->middleware('auth');    
+    ->middleware('auth');
+    
+Route::get('ANAFBanci', [ANAFBanciController::class, 'index'])
+    ->name('ANAFBanci')
+    ->middleware('auth');
+
+Route::post('ANAFBanci', [ANAFBanciController::class, 'store'])
+    ->name('ANAFBanci.store')
+    ->middleware('auth');
 
 
 Route::post('interogare_data', [InterogareController::class, 'interogare_data'])
