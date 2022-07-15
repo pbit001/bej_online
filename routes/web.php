@@ -10,6 +10,7 @@ use App\Http\Controllers\DosareDeschiseController;
 use App\Http\Controllers\InterogareController;
 use App\Http\Controllers\ANAFAngajatoriController;
 use App\Http\Controllers\ANAFBanciController;
+use App\Http\Controllers\FacturiConrtoller;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -100,6 +101,18 @@ Route::post('ANAFAngajatori', [ANAFAngajatoriController::class, 'store'])
 Route::get('ANAFBanci', [ANAFBanciController::class, 'index'])
     ->name('ANAFBanci')
     ->middleware('auth');
+Route::get('Facturi', [FacturiConrtoller::class, 'index'])
+    ->name('Facturi')
+    ->middleware('auth');    
+ 
+Route::any('Clienti', [FacturiConrtoller::class, 'store'])
+    ->name('Clienti')
+    ->middleware('auth');        
+
+Route::post('Createbill', [FacturiConrtoller::class, 'senttobill'])
+    ->name('Createbill')
+    ->middleware('auth');        
+    
 
 Route::post('ANAFBanci', [ANAFBanciController::class, 'store'])
     ->name('ANAFBanci.store')

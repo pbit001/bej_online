@@ -11,16 +11,16 @@ import { v4 as uuid } from 'uuid'
 
 export default {
   inheritAttrs: false,
-  props: {  
+  props: {
     id: {
       type: String,
       default() {
-        return `number-input-${uuid()}`
+        return `radio-input-${uuid()}`
       },
     },
     type: {
       type: String,
-      default: 'number',
+      default: 'radio',
     },
     error: String,
     label: String,
