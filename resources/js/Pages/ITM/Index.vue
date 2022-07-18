@@ -113,8 +113,6 @@ export default {
   computed: {
     selectAll: {
         get: function () {
-            console.log('here in ');
-            console.log(this.DosareDeschise.data.length);
             return this.DosareDeschise ? this.form.records.length == this.DosareDeschise.data.length : false;
         },
         set: function (value) {
@@ -125,7 +123,6 @@ export default {
                     records.push(DosareDeschisesing.Nr_Dosar);
                 });
             }
-
             this.form.records = records;
         }
     }
