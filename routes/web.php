@@ -12,6 +12,7 @@ use App\Http\Controllers\InterogareController;
 use App\Http\Controllers\ANAFAngajatoriController;
 use App\Http\Controllers\ANAFBanciController;
 use App\Http\Controllers\FacturiConrtoller;
+use App\Http\Controllers\ITMController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -86,6 +87,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('DosareDeschise', DosareDeschiseController::class);
 
 });
+
+Route::get('ITM', [ITMController::class, 'index'])
+    ->name('ITM')
+    ->middleware('auth');
 
 Route::get('interogare', [InterogareController::class, 'index'])
     ->name('interogare')

@@ -62,6 +62,13 @@
       </Link>
     </div>
 
+    <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/ITM">
+        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('ITM') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('ITM') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Adresa ITM</div>
+      </Link>
+    </div>
+
 
     
 
