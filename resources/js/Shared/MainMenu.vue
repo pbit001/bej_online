@@ -55,6 +55,13 @@
       </Link>
     </div>
 
+    <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/template">
+        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('template') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('template') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Templates</div>
+      </Link>
+    </div>
+
 
     
 

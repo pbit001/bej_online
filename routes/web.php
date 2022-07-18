@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImagesController;
 use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\IrdosarLogController;
 use App\Http\Controllers\DosareDeschiseController;
 use App\Http\Controllers\InterogareController;
@@ -145,6 +146,32 @@ Route::delete('organizations/{organization}', [OrganizationsController::class, '
 
 Route::put('organizations/{organization}/restore', [OrganizationsController::class, 'restore'])
     ->name('organizations.restore')
+    ->middleware('auth');
+
+
+// Template
+Route::get('template', [TemplateController::class, 'index'])
+    ->name('template')
+    ->middleware('auth');
+
+Route::get('template/create', [TemplateController::class, 'create'])
+    ->name('template.create')
+    ->middleware('auth');
+
+Route::post('template', [TemplateController::class, 'store'])
+    ->name('template.store')
+    ->middleware('auth');
+
+Route::get('template/{organization}/edit', [TemplateController::class, 'edit'])
+    ->name('template.edit')
+    ->middleware('auth');
+
+Route::put('template/{organization}', [TemplateController::class, 'update'])
+    ->name('template.update')
+    ->middleware('auth');
+
+Route::delete('template/{template}', [TemplateController::class, 'destroy'])
+    ->name('template.destroy')
     ->middleware('auth');
 
 // Contacts
