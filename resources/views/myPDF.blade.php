@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    {{ $pdf_content }}
+    {!! $pdf_content !!}
 </body>
 
 </html>
