@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Template;
+use App\Models\DosareDeschise;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use PDF;
 
 class TemplateController extends Controller
 {
@@ -18,13 +20,12 @@ class TemplateController extends Controller
     public function index()
     {
         return Inertia::render('Templates/Index', [
-            'Template' => Template::orderBy('template_title','DESC')->paginate(10)
+            'Template' => Template::orderBy('template_title', 'DESC')->paginate(10)
                 ->through(fn ($Template) => [
                     'id' => $Template->id,
                     'template_title' => $Template->template_title,
                 ]),
         ]);
-        
     }
 
     /**
@@ -50,7 +51,7 @@ class TemplateController extends Controller
         ]);
 
         $input = $request->all();
-        
+
         $templateCreated = Template::create([
             'template_title'        => $input['template_title'],
             'template_text'        => $input['template_text'],
@@ -105,10 +106,53 @@ class TemplateController extends Controller
         $input = $request->all();
         $templates = Template::where('id', $id)->first();
         $templates->template_title = $input['template_title'];
-        $templates->template_text = $input['template_text']; 
+        $templates->template_text = $input['template_text'];
         $templates->save();
 
         return Redirect::route('template')->with('success', 'Template updated.');
+    }
+
+    /**
+     * download_templaten
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function download_template(Request $request)
+    {
+        $input = $request->all();
+
+        $templates = Template::where('id', '6')->first();
+
+        $templateText = $templates->template_text;
+        preg_match_all('/{(.*?)}/', $templateText, $matches);
+
+        $templateToPDF = "";
+        foreach ($input['records'] as $rec) {
+            $templateText = $templates->template_text;
+            $DosareDeschise = DosareDeschise::where('Nr_Dosar', $rec)->where('Stadiu_Dosar', 'deschis')->first();
+            foreach ($matches[0] as $templSpecific) :
+                $columnName = trim($templSpecific, "{}");
+                if (isset($DosareDeschise->$columnName)) {
+
+                    $templateText =  str_replace($templSpecific, $DosareDeschise->$columnName, $templateText);
+                }
+
+            endforeach;
+
+            $templateToPDF .= $templateText;
+        }
+
+
+        $data = [
+            'title' => 'Welcome to ItSolutionStuff.com',
+            'date' => date('m/d/Y'),
+            'pdf_content' => $templateToPDF,
+        ];
+
+        $pdf = PDF::loadView('myPDF', $data);
+        $pdf->setOption('javascript-delay', 3000);
+        return $pdf->download('itsolutionstuff.pdf');
     }
 
     /**
@@ -120,7 +164,6 @@ class TemplateController extends Controller
     public function destroy(Template $template)
     {
         $template->delete();
-        return Redirect::route('template')->with('success', 'Template Deleted.');        
-        
+        return Redirect::route('template')->with('success', 'Template Deleted.');
     }
 }

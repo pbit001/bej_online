@@ -4,7 +4,7 @@
     <h1 class="mb-8 text-3xl font-bold">Adresa ITM</h1>
     
     <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
-    <form @submit.prevent="sendtoprint">
+    <form @submit.prevent="download_template">
         <table class="w-full whitespace-nowrap table table-hover table-bordered" id="example">
           <thead>
             <tr class="text-left font-bold" >
@@ -90,12 +90,15 @@ import throttle from 'lodash/throttle'
 import mapValues from 'lodash/mapValues'
 import Pagination from '@/Shared/Pagination'
 import SearchFilter from '@/Shared/SearchFilter'
+import LoadingButton from '@/Shared/LoadingButton'
+import axios from 'axios'
 
 export default {
   components: {
     Head,
     Icon,
     Link,
+    LoadingButton,
     Pagination,
     SearchFilter,
   },
@@ -140,11 +143,24 @@ export default {
     reset() {
       this.form = mapValues(this.form, () => null)
     },
-    destroy(id) {
-      if (confirm('Are you sure you want to delete this Adresa ITM?')) {
-        this.$inertia.delete(`/DosareDeschise/${id}`)
-      }
+    download_template() {
+      
+      axios({
+      url: '/download_template/',
+      method: 'POST',
+      data: this.form,
+      responseType: 'blob', // important
+    }).then((response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.pdf');
+      document.body.appendChild(link);
+      link.click();
+    });
+      
     },
+    
   },
 }
 
