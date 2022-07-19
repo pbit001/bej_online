@@ -13,7 +13,8 @@
           <text-input v-model="form.template_title" :error="form.errors.template_title" class="pb-8 pr-6 w-full lg:w-1/2" label="Template Title" />
         </div>
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
-        <textarea-input v-model="form.template_text" :error="form.errors.template_text" class="pb-8 pr-6 w-full lg:w-1/1" label="Template Content" />
+
+        <ckeditor :editor="editor" v-model="form.template_text" :config="editorConfig"></ckeditor> 
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
           <button v-if="!Template.deleted_at" class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete Template</button>
@@ -34,6 +35,7 @@ import TextareaInput from '@/Shared/TextareaInput'
 import SelectInput from '@/Shared/SelectInput'
 import LoadingButton from '@/Shared/LoadingButton'
 import TrashedMessage from '@/Shared/TrashedMessage'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default {
   components: {
@@ -55,8 +57,9 @@ export default {
     return {
       form: this.$inertia.form({
         template_title: this.Template.template_title,
-        template_text: this.Template.template_text
+        template_text: this.Template.template_text,
       }),
+      editor: ClassicEditor,
     }
   },
   methods: {

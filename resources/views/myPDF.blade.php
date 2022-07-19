@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Hi</title>
+    <title>{{ $title }}</title>
 </head>
 
 <body>

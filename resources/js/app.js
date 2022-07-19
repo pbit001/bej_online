@@ -1,6 +1,7 @@
 import { createApp, h } from 'vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 InertiaProgress.init()
 
@@ -10,6 +11,7 @@ createInertiaApp({
   setup({ el, App, props, plugin }) {
     createApp({ render: () => h(App, props) })
       .use(plugin)
+      .use(CKEditor)
       .mount(el)
   },
 })
