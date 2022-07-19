@@ -144,7 +144,7 @@ export default {
       this.form = mapValues(this.form, () => null)
     },
     download_template() {
-      
+      console.log('test submit download template');
       axios({
       url: '/download_template/',
       method: 'POST',
