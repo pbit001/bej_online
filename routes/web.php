@@ -179,7 +179,7 @@ Route::delete('template/{template}', [TemplateController::class, 'destroy'])
     ->name('template.destroy')
     ->middleware('auth');
 
-Route::post('download_template', [TemplateController::class, 'download_template'])
+Route::any('download_template', [TemplateController::class, 'download_template'])
     ->name('download_templaten')
     ->middleware('auth');
 // Contacts
