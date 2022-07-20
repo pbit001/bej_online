@@ -121,7 +121,7 @@ class TemplateController extends Controller
     public function download_template(Request $request)
     {
         $input = $request->all();
-        
+
         $templates = Template::where('id', '6')->first();
 
         $templateText = $templates->template_text;
@@ -142,7 +142,7 @@ class TemplateController extends Controller
 
             $templateToPDF .= $templateText;
         }
-
+        dd($templateToPDF);
 
         $data = [
             'title' => 'Welcome to ItSolutionStuff.com',
