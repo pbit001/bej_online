@@ -67,7 +67,6 @@
         </table>
         
         <select-input v-model="form.dbtemplate" :error="form.errors.dbtemplate" class="pb-8 pr-6 w-full lg:w-1/2" label="Template">
-            <option :value="null" />
             <option v-for="templ in Template.data" v-bind:value="templ.id">
               {{ templ.template_title }}
             </option>
@@ -121,7 +120,7 @@ export default {
     return {
       form: this.$inertia.form({
         records: [],
-        dbtemplate: null
+        dbtemplate: 1
       }),
     }
   },
@@ -163,6 +162,7 @@ export default {
       data: this.form,
       responseType: 'blob', // important
     }).then((response) => {
+      
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
