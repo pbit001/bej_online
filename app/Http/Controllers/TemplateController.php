@@ -123,7 +123,7 @@ class TemplateController extends Controller
         $input = $request->all();
         
         $templates = Template::where('id', '6')->first();
-
+        
         $templateText = $templates->template_text;
         preg_match_all('/{(.*?)}/', $templateText, $matches);
 
@@ -152,7 +152,7 @@ class TemplateController extends Controller
 
         $pdf = PDF::loadView('myPDF', $data);
         $pdf->setOption('javascript-delay', 3000);
-        return $pdf->download('itsolutionstuff.pdf');
+        return $pdf->download('bejonline.pdf');
     }
 
     /**
