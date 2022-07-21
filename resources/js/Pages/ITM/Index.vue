@@ -146,7 +146,7 @@ export default {
     download_template() {
       console.log('test submit download template');
       axios({
-      url: '/download_template/',
+      url: '/download_template',
       method: 'POST',
       data: this.form,
       responseType: 'blob', // important
