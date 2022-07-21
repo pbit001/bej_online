@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use PDF;
+use Illuminate\Support\Facades\DB;
 
 class TemplateController extends Controller
 {
@@ -135,7 +136,13 @@ class TemplateController extends Controller
         $templateToPDF = "";
         foreach ($input['records'] as $rec) {
             $templateText = $templates->template_text;
-            $DosareDeschise = DosareDeschise::where('Nr_Dosar', $rec)->where('Stadiu_Dosar', 'deschis')->first();
+
+            $DosareDeschise = DB::connection('mysql2')->table('ARTESTEXECUTOR_IRDosar')
+            ->leftJoin('Util_AdreseITM', 'ARTESTEXECUTOR_IRDosar.Judet_Debitor', '=', 'Util_AdreseITM.Judet_ITM')
+            ->where('ARTESTEXECUTOR_IRDosar.Nr_Dosar', $rec)->where('ARTESTEXECUTOR_IRDosar.Stadiu_Dosar', 'deschis')->first();
+
+
+            //$DosareDeschise = DosareDeschise::where('Nr_Dosar', $rec)->where('Stadiu_Dosar', 'deschis')->first();
             foreach ($matches[0] as $templSpecific) :
                 $columnName = trim($templSpecific, "{}");
                 if (isset($DosareDeschise->$columnName)) {
