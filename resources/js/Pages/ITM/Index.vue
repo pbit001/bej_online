@@ -65,6 +65,14 @@
             </tr>
           </tbody>
         </table>
+        
+        <select-input v-model="form.dbtemplate" :error="form.errors.dbtemplate" class="pb-8 pr-6 w-full lg:w-1/2" label="Template">
+            <option :value="null" />
+            <option v-for="templ in Template.data" v-bind:value="templ.id">
+              {{ templ.template_title }}
+            </option>
+            
+          </select-input>
         <loading-button :loading="form.processing" class="btn-indigo" type="submit">Creaza</loading-button>
       </form>
     </div>
@@ -91,6 +99,7 @@ import mapValues from 'lodash/mapValues'
 import Pagination from '@/Shared/Pagination'
 import SearchFilter from '@/Shared/SearchFilter'
 import LoadingButton from '@/Shared/LoadingButton'
+import SelectInput from '@/Shared/SelectInput'
 import axios from 'axios'
 
 export default {
@@ -99,17 +108,20 @@ export default {
     Icon,
     Link,
     LoadingButton,
+    SelectInput,
     Pagination,
     SearchFilter,
   },
   layout: Layout,
   props: {
     DosareDeschise: Object,
+    Template: Object,
   },
   data() {
     return {
       form: this.$inertia.form({
-        records: []
+        records: [],
+        dbtemplate: null
       }),
     }
   },

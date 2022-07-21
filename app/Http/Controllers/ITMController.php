@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DosareDeschise;
+use App\Models\Template;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -41,6 +42,11 @@ class ITMController extends Controller
                     'Poprire_Conturi' => $DosareDeschise->Poprire_Conturi,
                     'Stadiu_Dosar' => $DosareDeschise->Stadiu_Dosar,
                     'Suma_TotalaRamasa' => $DosareDeschise->Suma_TotalaRamasa,
+                ]),
+                'Template' => Template::orderBy('template_title', 'DESC')->paginate(10)
+                ->through(fn ($Template) => [
+                    'id' => $Template->id,
+                    'template_title' => $Template->template_title,
                 ]),
         ]);
     }

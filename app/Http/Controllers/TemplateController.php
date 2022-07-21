@@ -120,9 +120,14 @@ class TemplateController extends Controller
      */
     public function download_template(Request $request)
     {
+        // $request->validate([
+        //     'records' => ['required'],
+        //     'dbtemplate' => ['required']
+        // ]);
+
         $input = $request->all();
         
-        $templates = Template::where('id', '1')->first();
+        $templates = Template::where('id', $input['dbtemplate'])->first();
 
         $templateText = $templates->template_text;
         preg_match_all('/{(.*?)}/', $templateText, $matches);
