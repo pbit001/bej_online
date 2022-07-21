@@ -122,7 +122,7 @@ class TemplateController extends Controller
     {
         $input = $request->all();
         
-        $templates = Template::where('id', '6')->first();
+        $templates = Template::where('id', '1')->first();
 
         $templateText = $templates->template_text;
         preg_match_all('/{(.*?)}/', $templateText, $matches);
