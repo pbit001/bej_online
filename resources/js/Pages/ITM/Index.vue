@@ -156,21 +156,31 @@ export default {
     },
     download_template() {
       if(this.form.records.length > 0 && this.form.dbtemplate > 0) {
-          this.form.processing = true;
-          axios({
-          url: '/download_template',
-          method: 'POST',
-          data: this.form,
-          responseType: 'blob', // important
-        }).then((response) => {
-          this.form.processing = false;
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          const link = document.createElement('a');
-          link.href = url;
-          link.setAttribute('download', 'bejonline.pdf');
-          document.body.appendChild(link);
-          link.click();
-        });
+          var dbtampletForSubmit = this.form.dbtemplate;
+          //this.form.processing = true;
+          this.form.records.forEach(function (rec) {
+              
+              axios({
+              url: '/download_template',
+              method: 'POST',
+              data: {
+                    records: rec,
+                    dbtemplate: dbtampletForSubmit
+                  },
+              responseType: 'blob', // important
+            }).then((response) => {
+              
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', rec+'.pdf');
+              document.body.appendChild(link);
+              link.click();
+            });
+           
+          });
+          //this.form.processing = false;  
+          
       } else {
         alert("File or Template is missing");
       }

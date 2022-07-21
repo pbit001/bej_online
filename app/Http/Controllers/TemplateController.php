@@ -134,7 +134,8 @@ class TemplateController extends Controller
         preg_match_all('/{(.*?)}/', $templateText, $matches);
 
         $templateToPDF = "";
-        foreach ($input['records'] as $rec) {
+        //foreach ($input['records'] as $rec) {
+            $rec = $input['records'];
             $templateText = $templates->template_text;
 
             $DosareDeschise = DB::connection('mysql2')->table('ARTESTEXECUTOR_IRDosar')
@@ -151,7 +152,7 @@ class TemplateController extends Controller
             endforeach;
 
             $templateToPDF .= $templateText;
-        }
+        //}
 
 
         $data = [
@@ -162,7 +163,7 @@ class TemplateController extends Controller
 
         $pdf = PDF::loadView('myPDF', $data);
         $pdf->setOption('javascript-delay', 3000);
-        return $pdf->download('bejonline.pdf');
+        return $pdf->download($rec.'.pdf');
     }
 
     /**
