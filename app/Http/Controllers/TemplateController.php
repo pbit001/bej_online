@@ -140,13 +140,11 @@ class TemplateController extends Controller
             $DosareDeschise = DB::connection('mysql2')->table('ARTESTEXECUTOR_IRDosar')
             ->leftJoin('Util_AdreseITM', 'ARTESTEXECUTOR_IRDosar.Judet_Debitor', '=', 'Util_AdreseITM.Judet_ITM')
             ->where('ARTESTEXECUTOR_IRDosar.Nr_Dosar', $rec)->where('ARTESTEXECUTOR_IRDosar.Stadiu_Dosar', 'deschis')->first();
-
-
+            
             //$DosareDeschise = DosareDeschise::where('Nr_Dosar', $rec)->where('Stadiu_Dosar', 'deschis')->first();
             foreach ($matches[0] as $templSpecific) :
                 $columnName = trim($templSpecific, "{}");
-                if (isset($DosareDeschise->$columnName)) {
-
+                if (property_exists($DosareDeschise, $columnName)) {
                     $templateText =  str_replace($templSpecific, $DosareDeschise->$columnName, $templateText);
                 }
 
