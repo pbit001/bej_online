@@ -120,8 +120,9 @@ export default {
     return {
       form: this.$inertia.form({
         records: [],
-        dbtemplate: 1
+        dbtemplate: null,
       }),
+      
     }
   },
   computed: {
@@ -131,7 +132,6 @@ export default {
         },
         set: function (value) {
             var records = [];
-      
             if (value) {
                 this.DosareDeschise.data.forEach(function (DosareDeschisesing) {
                     records.push(DosareDeschisesing.Nr_Dosar);
@@ -143,11 +143,11 @@ export default {
   },
   mounted(){
     $('#example').DataTable();
+    
   },
   watch: {
     form: {
       deep: true,
-     
     },
   },
   methods: {
@@ -155,21 +155,25 @@ export default {
       this.form = mapValues(this.form, () => null)
     },
     download_template() {
-      console.log('test submit download template');
-      axios({
-      url: '/download_template',
-      method: 'POST',
-      data: this.form,
-      responseType: 'blob', // important
-    }).then((response) => {
-      
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', 'bejonline.pdf');
-      document.body.appendChild(link);
-      link.click();
-    });
+      if(this.form.records.length > 0 && this.form.dbtemplate > 0) {
+          this.form.processing = true;
+          axios({
+          url: '/download_template',
+          method: 'POST',
+          data: this.form,
+          responseType: 'blob', // important
+        }).then((response) => {
+          this.form.processing = false;
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          link.href = url;
+          link.setAttribute('download', 'bejonline.pdf');
+          document.body.appendChild(link);
+          link.click();
+        });
+      } else {
+        alert("File or Template is missing");
+      }
       
     },
     
