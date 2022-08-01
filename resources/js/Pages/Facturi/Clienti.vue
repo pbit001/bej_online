@@ -19,7 +19,7 @@
         <tbody>
           <tr v-for="organization in DosareDeschise.data" class="hover:bg-gray-100 focus-within:bg-gray-100">
             <td class="border-t">
-              <input type="checkbox" v-model="form.records" name="records[]" :value="organization.Nr_Dosar">
+              <input type="checkbox" v-model="form.records" name="records" :value="organization.Nr_Dosar">
             </td>
             <td class="border-t">
               {{ organization.Nr_Dosar }}
@@ -93,7 +93,7 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
-        records: null
+        records: []
       }),
     }
   },

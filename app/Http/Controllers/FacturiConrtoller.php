@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\Controller;
 use App\Models\Facturi;
 use App\Models\Clienti;
+use App\Models\ARTESTEXECUTOR_Prod;
 
 class FacturiConrtoller extends Controller
 {
@@ -18,9 +19,9 @@ class FacturiConrtoller extends Controller
     public function index()
     {
         $DosareDeschise = "";
-        
+
         return Inertia::render('Facturi/Index', [
-            'DosareDeschise' => Facturi::orderBy('Nume_Client','DESC')->paginate(100)
+            'DosareDeschise' => Facturi::orderBy('Nume_Client', 'DESC')->paginate(100)
                 ->through(fn ($DosareDeschise) => [
                     'Nume_Client' => $DosareDeschise->Nume_Client
                 ]),
@@ -34,7 +35,6 @@ class FacturiConrtoller extends Controller
      */
     public function create()
     {
-       
     }
 
     /**
@@ -47,7 +47,7 @@ class FacturiConrtoller extends Controller
     {
         $input = $request->all();
         return Inertia::render('Facturi/Clienti', [
-            'DosareDeschise' => Clienti::orderBy('Nume_Client','DESC')->where('Nume_Creditor', $input['records'])->paginate(100)
+            'DosareDeschise' => Clienti::orderBy('Nume_Client', 'DESC')->where('Nume_Creditor', $input['records'])->paginate(100)
                 ->through(fn ($DosareDeschise) => [
                     'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
                     'Nume_Creditor' => $DosareDeschise->Nume_Creditor,
@@ -55,7 +55,6 @@ class FacturiConrtoller extends Controller
                     'Adresa_Client' => $DosareDeschise->Adresa_Client,
                 ]),
         ]);
-        
     }
 
     /**
@@ -66,8 +65,42 @@ class FacturiConrtoller extends Controller
      */
     public function senttobill(Request $request)
     {
-        echo 'here in set to bill';
-        exit;
+        $input = $request->all();
+
+        $Nume_Client = "";
+        $Detalii_Client = "";
+        if (isset($input['records'][0]) && !empty($input['records'][0])) {
+            $recordsSingle = $input['records'][0];
+            $Client = Clienti::where('Nr_Dosar', $recordsSingle)->first();
+            $Nume_Client = $Client->Nume_Client;
+            $Detalii_Client = $Client->Detalii_Client;
+        }
+
+        if (isset($input['records']) && !empty($input['records'])) {
+            $ClientAll = Clienti::whereIn('Nr_Dosar', $input['records'])->get();
+        }
+
+
+        return Inertia::render('Facturi/CreateBill', [
+            'Nume_Client' => $Nume_Client,
+            'Detalii_Client' => $Detalii_Client,
+            'ClientAll' => Clienti::whereIn('Nr_Dosar', $input['records'])->paginate(100)
+                ->through(fn ($DosareDeschise) => [
+                    'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
+                    'item_name' => '',
+                    'order_item_quantity' => '',
+                    'order_item_price' =>  '',
+                    'order_item_actual_amount' => '',
+                    'order_item_tax1_rate' => '19',
+                    'order_item_tax1_amount' => '',
+                    'order_item_final_amount' => '',
+                ]),
+            'Product' => ARTESTEXECUTOR_Prod::paginate(100)
+                ->through(fn ($Product) => [
+                    'Nume_Prod' => $Product->Nume_Prod,
+                ]),
+
+        ]);
     }
 
     /**

@@ -15,25 +15,9 @@
           <text-input v-model="form.Adresa_Debitor" :error="form.errors.Adresa_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Adresa Debitor" />
           <text-input v-model="form.Judet_Debitor" :error="form.errors.Judet_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Judet Debitor" />
           <text-input v-model="form.Primarie_Debitor" :error="form.errors.Primarie_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Primarie Debitor" />
-          <select-input v-model="form.Judecatoria" :error="form.errors.Judecatoria" class="pb-8 pr-6 w-full lg:w-1/2" label="Judecatorie Debitor">
+          <select-input v-model="form.item_name" :error="form.errors.item_name" class="pb-8 pr-6 w-full lg:w-1/2">
             <option :value="null" />
-            <option value="ORADEA">ORADEA</option> 
-            <option value="ALESD">ALESD</option> 
-            <option value="BEIUS">BEIUS</option> 
-            <option value="MARGHITA">MARGHITA</option> 
-            <option value="ARAD">ARAD</option> 
-            <option value="CHISINEU-CRIS">CHISINEU-CRIS</option> 
-            <option value="GURAHONT">GURAHONT</option> 
-            <option value="INEU">INEU</option> 
-            <option value="LIPOVA">LIPOVA</option>
-            <option value="TIMISOARA">TIMISOARA</option>
-            <option value="DETA">DETA</option>
-            <option value="FAGET">FAGET</option>
-            <option value="LUGOJ">LUGOJ</option>
-            <option value="SANICOLAUL MARE">SANICOLAUL MARE</option>
-            <option value="CARANSEBES">CARANSEBES</option>
-            <option value="MOLDOVA-NOUA">MOLDOVA-NOUA</option>
-            <option value="ORAVITA">ORAVITA</option>
+           
             <option value="RESITA">RESITA</option>
           </select-input>
           <text-input v-model="form.Nume_Creditor" :error="form.errors.Nume_Creditor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Creditor" />
