@@ -76,10 +76,6 @@ class FacturiConrtoller extends Controller
             $Detalii_Client = $Client->Detalii_Client;
         }
 
-        if (isset($input['records']) && !empty($input['records'])) {
-            $ClientAll = Clienti::whereIn('Nr_Dosar', $input['records'])->get();
-        }
-
 
         return Inertia::render('Facturi/CreateBill', [
             'Nume_Client' => $Nume_Client,
