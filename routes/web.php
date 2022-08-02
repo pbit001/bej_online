@@ -117,6 +117,10 @@ Route::any('Clienti', [FacturiConrtoller::class, 'store'])
 
 Route::post('Createbill', [FacturiConrtoller::class, 'senttobill'])
     ->name('Createbill')
+    ->middleware('auth');    
+    
+Route::post('Savebill', [FacturiConrtoller::class, 'Savebill'])
+    ->name('Savebill')
     ->middleware('auth');        
     
 

@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Facturi;
 use App\Models\Clienti;
 use App\Models\ARTESTEXECUTOR_Prod;
+use App\Models\tbl_order;
+use App\Models\tbl_order_item;
+use Illuminate\Support\Facades\Redirect;
 
 class FacturiConrtoller extends Controller
 {
@@ -97,6 +100,64 @@ class FacturiConrtoller extends Controller
                 ]),
 
         ]);
+    }
+
+    /** Savebill */
+
+    public function saveBill(Request $request)
+    {
+        $input = $request->all();
+        
+        $order_total_before_tax = 0;
+        $order_total_tax1 = 0;
+        $today  = date("Y.m.d");
+        $order_total_tax = 0;
+        $order_total_after_tax = 0;
+
+        $tbl_order = tbl_order::create([
+            'order_no'              => '15',
+            'order_receiver_name'    => $input['order_receiver_name'],
+            'order_receiver_address' => $input['order_receiver_address'],
+            'order_total_before_tax' => 0,
+            'order_total_tax1'       => $order_total_tax1,
+            'order_total_tax'        => 0,
+            'order_total_after_tax'  => 0,
+            'order_datetime' => $today,
+            'Suma_Incasata'  => 0,
+        ]);
+        
+        
+        $order_id = $tbl_order->order_id;
+        
+        foreach($input['xyz'] as $singRecrd):
+            $order_total_before_tax = $order_total_before_tax + floatval(trim($singRecrd['order_item_actual_amount']));
+            $order_total_tax1 = $order_total_tax1 + floatval(trim($singRecrd['order_item_tax1_amount']));
+            $order_total_after_tax = $order_total_after_tax + floatval(trim($singRecrd["order_item_final_amount"]));
+
+            tbl_order_item::create([
+                'order_id'              => $order_id,
+                'item_name'    => $singRecrd['item_name'],
+                'order_item_quantity' => $singRecrd['order_item_quantity'],
+                'order_item_price' => $singRecrd['order_item_price'],
+                'order_item_actual_amount'       => $singRecrd['order_item_actual_amount'],
+                'order_item_tax1_rate'        => $singRecrd['order_item_tax1_rate'],
+                'order_item_tax1_amount'  => $singRecrd['order_item_tax1_amount'],
+                'order_item_final_amount' => $singRecrd['order_item_final_amount'],
+                'Detalii'  => $singRecrd['Nr_Dosar'],
+            ]);
+
+        endforeach;
+        
+        $order_total_tax = $order_total_tax1;
+
+
+        $tbl_order->order_total_before_tax = $order_total_before_tax ;
+        $tbl_order->order_total_tax1 = $order_total_tax1;
+        $tbl_order->order_total_tax = $order_total_tax;
+        $tbl_order->order_total_after_tax = $order_total_after_tax;
+        
+        $tbl_order->save();
+        return Redirect::route('Facturi')->with('success', 'Order added.');
     }
 
     /**

@@ -158,7 +158,7 @@ export default {
   methods: {
     
     SaveBill() {
-      this.form.post('/Createbill')
+      this.form.post('/Savebill')
     },
     cloneRow(_index) {
       this.count++;
