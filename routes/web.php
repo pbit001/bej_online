@@ -115,7 +115,7 @@ Route::any('Clienti', [FacturiConrtoller::class, 'store'])
     ->name('Clienti')
     ->middleware('auth');        
 
-Route::post('Createbill', [FacturiConrtoller::class, 'senttobill'])
+Route::any('Createbill', [FacturiConrtoller::class, 'senttobill'])
     ->name('Createbill')
     ->middleware('auth');    
     

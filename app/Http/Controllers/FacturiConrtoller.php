@@ -106,6 +106,11 @@ class FacturiConrtoller extends Controller
 
     public function saveBill(Request $request)
     {
+        $request->validate([
+            'order_receiver_name' => ['required'],
+            'order_receiver_address' => ['required'],
+        ]);
+
         $input = $request->all();
         
         $order_total_before_tax = 0;

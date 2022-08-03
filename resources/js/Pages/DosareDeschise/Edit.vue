@@ -69,6 +69,7 @@
           <text-input v-model="form.CoDebitor_Girant" :error="form.errors.CoDebitor_Girant" class="pb-8 pr-6 w-full lg:w-1/2" label="CoDebitor Girant" />
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
+        <button  class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete</button>
           <loading-button :loading="form.processing" class="btn-indigo ml-auto" type="submit">Update Dosare Deschise</loading-button>
         </div>
       </form>
@@ -129,16 +130,16 @@ export default {
   },
   methods: {
     update() {
-      this.form.put(`/DosareDeschise/${this.DosareDeschise.id}`)
+      this.form.put(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}`)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
-        this.$inertia.delete(`/DosareDeschise/${this.DosareDeschise.id}`)
+        this.$inertia.delete(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}`)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this Dosare Deschise?')) {
-        this.$inertia.put(`/DosareDeschise/${this.DosareDeschise.id}/restore`)
+        this.$inertia.put(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}/restore`)
       }
     },
   },

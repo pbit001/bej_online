@@ -10,6 +10,7 @@ class DosareDeschise extends Model
 
     protected $connection = 'mysql2';
     protected $table = 'ARTESTEXECUTOR_IRDosar';
+    protected $primaryKey = 'Nr_Dosar';
     public $timestamps = false;
 
     use HasFactory;

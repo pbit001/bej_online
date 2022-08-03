@@ -40,35 +40,35 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="organization in DosareDeschise.data" :key="organization.id" class="hover:bg-gray-100 focus-within:bg-gray-100">
+          <tr v-for="organization in DosareDeschise.data" :key="organization.Nr_Dosar" class="hover:bg-gray-100 focus-within:bg-gray-100">
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
                 Istoric
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
                 Obs
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
                 Detalii
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
                 {{ organization.Nr_Dosar }}
                 <icon v-if="organization.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`" tabindex="-1">
                 {{ organization.Nume_Debitor }}
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`" tabindex="-1">
                 {{ organization.Prenume_Debitor }}
               </Link>
             </td>
@@ -124,8 +124,7 @@
                 {{ organization.Suma_TotalaRamasa }}
             </td>
             <td class="border-t">
-                <button class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy(organization.id)">Delete</button>
-                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
+                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
                 Edit
               </Link>
             </td>
