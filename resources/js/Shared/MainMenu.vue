@@ -69,6 +69,13 @@
       </Link>
     </div>
 
+    <div class="mb-4">
+      <Link class="group flex items-center py-3" href="/Upload">
+        <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('Upload') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
+        <div :class="isUrl('Upload') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Upload</div>
+      </Link>
+    </div>
+
 
     
 
