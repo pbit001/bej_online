@@ -14,6 +14,7 @@ use App\Http\Controllers\ANAFBanciController;
 use App\Http\Controllers\FacturiConrtoller;
 use App\Http\Controllers\ITMController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -110,7 +111,15 @@ Route::get('ANAFBanci', [ANAFBanciController::class, 'index'])
 Route::get('Facturi', [FacturiConrtoller::class, 'index'])
     ->name('Facturi')
     ->middleware('auth');    
- 
+
+Route::get('Upload', [UploadController::class, 'index'])
+    ->name('Upload')
+    ->middleware('auth');
+   
+Route::post('Upload', [UploadController::class, 'store'])
+    ->name('Upload.store')
+    ->middleware('auth');
+    
 Route::any('Clienti', [FacturiConrtoller::class, 'store'])
     ->name('Clienti')
     ->middleware('auth');        
