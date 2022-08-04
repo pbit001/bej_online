@@ -158,6 +158,28 @@ export default {
   methods: {
     
     SaveBill() {
+      for (let j = 0; j < this.form.xyz.length; j++) {
+        if(this.form.xyz[j].Nr_Dosar.length == 0) {
+          alert("Please Enter Details");
+          return false;
+        }
+        
+        if(this.form.xyz[j].item_name.length == 0) {
+          alert("Please Enter Item Name");
+          return false;
+        }
+
+        if(this.form.xyz[j].order_item_quantity.length == 0) {
+          alert("Please Enter Quantity");
+          return false;
+        }
+
+        if(this.form.xyz[j].order_item_price.length == 0) {
+          alert("Please Enter Price");
+          return false;
+        }
+
+      }
       this.form.post('/Savebill')
     },
     cloneRow(_index) {
@@ -187,6 +209,7 @@ export default {
       this.form.xyz.push({
         Nr_Dosar: null,
         order_item_tax1_rate: 19,
+        item_name: null,
       });
     },
     cal_final_total() {
