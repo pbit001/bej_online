@@ -8,6 +8,18 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="store">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
+        <div class="pb-8 pr-6 w-full lg:w-1/2">
+          <label class="form-label" for="text-Credit_Ipotecar">BIFATI PENTRU CONTRACT CU CREDIT IPOTECAR</label>
+          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Credit_Ipotecar" true-value="yes" false-value="no" number @click="checkFirstCheckbox">
+          
+        </div>
+        <div class="pb-8 pr-6 w-full lg:w-1/2">
+          <label class="form-label" for="text-Grant_Imobiliar">BIFATI PENTRU GARANT IMOBILIAR</label>
+          <input id="text-Grant_Imobiliar" type="checkbox" v-model="form.Grant_Imobiliar" true-value="yes" false-value="no" number @click="checkSecondCheckbox">
+          
+        </div>
+         
+         
           <text-input v-model="form.Nr_Dosar" :error="form.errors.Nr_Dosar" class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
           <text-input v-model="form.Nume_Debitor" :error="form.errors.Nume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Debitor" />
           <text-input v-model="form.Prenume_Debitor" :error="form.errors.Prenume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Prenume Debitor" />
@@ -82,6 +94,8 @@ export default {
   data() {
     return {
       form: this.$inertia.form({
+        Credit_Ipotecar: "no",
+        Grant_Imobiliar: null,
         Nr_Dosar: null,
         Nume_Debitor: null,
         Prenume_Debitor: null,
@@ -109,6 +123,38 @@ export default {
   methods: {
     store() {
       this.form.post('/DosareDeschise')
+    },
+    checkFirstCheckbox() {
+      
+      setTimeout(function(scope) {
+
+            if(scope.form.Credit_Ipotecar == "yes") {
+
+              if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
+                //scope.form.Credit_Ipotecar = "yes";
+              } else {
+                scope.form.Credit_Ipotecar = "no";
+              }
+            }
+             
+        }, 200, this);
+
+    },
+    checkSecondCheckbox() {
+      
+      setTimeout(function(scope) {
+
+            if(scope.form.Grant_Imobiliar == "yes") {
+
+              if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
+                //scope.form.Grant_Imobiliar = "yes";
+              } else {
+                scope.form.Grant_Imobiliar = "no";
+              }
+            }
+
+        }, 200, this);
+
     },
   },
 }

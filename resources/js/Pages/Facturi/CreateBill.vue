@@ -159,7 +159,7 @@ export default {
     
     SaveBill() {
       for (let j = 0; j < this.form.xyz.length; j++) {
-        if(this.form.xyz[j].Nr_Dosar.length == 0) {
+        if(     this.form.xyz[j].Nr_Dosar.length == 0) {
           alert("Please Enter Details");
           return false;
         }

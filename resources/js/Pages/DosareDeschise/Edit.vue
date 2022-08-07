@@ -10,6 +10,17 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
+        <div class="pb-8 pr-6 w-full lg:w-1/2">
+          <label class="form-label" for="text-Credit_Ipotecar">BIFATI PENTRU CONTRACT CU CREDIT IPOTECAR</label>
+          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Credit_Ipotecar" true-value="yes" false-value="no" number >
+          
+        </div>
+        <div class="pb-8 pr-6 w-full lg:w-1/2">
+          <label class="form-label" for="text-Credit_Ipotecar">BIFATI PENTRU GARANT IMOBILIAR</label>
+          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Grant_Imobiliar" true-value="yes" false-value="no" number>
+          
+        </div>
+         
           <text-input v-model="form.Nr_Dosar" :error="form.errors.Nr_Dosar" class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
           <text-input v-model="form.Nume_Debitor" :error="form.errors.Nume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Debitor" />
           <text-input v-model="form.Prenume_Debitor" :error="form.errors.Prenume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Prenume Debitor" />
@@ -125,6 +136,8 @@ export default {
         Avans_Onorariu: this.DosareDeschise.Avans_Onorariu,        
         Stadiu_Dosar: this.DosareDeschise.Stadiu_Dosar,
         CoDebitor_Girant: this.DosareDeschise.CoDebitor_Girant,
+        Credit_Ipotecar: this.DosareDeschise.Credit_Ipotecar,
+        Grant_Imobiliar: this.DosareDeschise.Grant_Imobiliar,
       }),
     }
   },

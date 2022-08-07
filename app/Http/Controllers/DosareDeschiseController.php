@@ -80,6 +80,7 @@ class DosareDeschiseController extends Controller
 
         $input = $request->all();
         
+        
         $addedDosareDeschise = DosareDeschise::create([
             'Nr_Dosar'              => $input['Nr_Dosar'],
             'Nume_Debitor'          => $input['Nume_Debitor'],
@@ -102,6 +103,9 @@ class DosareDeschiseController extends Controller
             'Stadiu_Dosar'          => $input['Stadiu_Dosar'],
             'Avans_Onorariu'        => $input['Avans_Onorariu'],
             'ID_User'               => Auth::user()->id,
+            'Credit_Ipotecar'        => $input['Credit_Ipotecar'],
+            'Grant_Imobiliar'        => $input['Grant_Imobiliar'],
+
         ]);
 
 
@@ -157,7 +161,9 @@ class DosareDeschiseController extends Controller
                 'Cheltuieli' => $DosareDeschise->Cheltuieli,
                 'Procent_Onorariu' => $DosareDeschise->Procent_Onorariu,
                 'Avans_Onorariu' => $DosareDeschise->Avans_Onorariu,
-                'CoDebitor_Girant' => $DosareDeschise->CoDebitor_Girant
+                'CoDebitor_Girant' => $DosareDeschise->CoDebitor_Girant,
+                'Credit_Ipotecar' => $DosareDeschise->Credit_Ipotecar,
+                'Grant_Imobiliar' => $DosareDeschise->Grant_Imobiliar,
             ],
         ]);
     }
@@ -207,6 +213,8 @@ class DosareDeschiseController extends Controller
         $DosareDeschise->Cheltuieli = $input['Cheltuieli'];
         $DosareDeschise->Stadiu_Dosar = $input['Stadiu_Dosar'];
         $DosareDeschise->Avans_Onorariu = $input['Avans_Onorariu'];
+        $DosareDeschise->Credit_Ipotecar = $input['Credit_Ipotecar'];
+        $DosareDeschise->Grant_Imobiliar = $input['Grant_Imobiliar'];
         $DosareDeschise->save();
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise Inregistrare Dosar updated.');
