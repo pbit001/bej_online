@@ -145,8 +145,9 @@
       </button>
       <span class="modal__title">Istoric Dosare Deschise</span>
       <div class="modal__content">
-        <div class="bg-white rounded-md shadow overflow-x-auto istoricDiv" style="padding: 10px;" >
-        </div>
+        <p>
+          Vue Final Modal is a renderless, stackable, detachable and lightweight modal component.
+        </p>
       </div>
       <div class="modal__action">
       <button  class="text-red-600 hover:underline" tabindex="-1" type="button" @click="showModal = false" >Close</button>
@@ -155,6 +156,7 @@
     </vue-final-modal>
 
 
+    
   </div>
 </template>
 
@@ -169,7 +171,7 @@ import 'jquery/dist/jquery.min.js';
 import "datatables.net-dt/js/dataTables.dataTables"
 import "datatables.net-dt/css/jquery.dataTables.min.css"
 import $ from 'jquery'; 
-import axios from 'axios'
+
 
 import { Head, Link } from '@inertiajs/inertia-vue3'
 import Icon from '@/Shared/Icon'
@@ -216,21 +218,8 @@ export default {
       }
     },
     openModal(_nrd) {
-      axios({
-        url: '/DosareDeschiseIstoric/'+_nrd,
-        method: 'POST',
-        data: {
-              Nr_Dosare: _nrd
-            },
-        responseType: 'json', // important
-      }).then((response) => {
-        $(".istoricDiv").html(response.data.html);
-        
-        this.showModal = true;
-        $('#DosareDeschiseIstoric').DataTable();
-      });
       console.log(_nrd+ 'here in open modal');
-      
+      this.showModal = true;
     },
   },
 }
@@ -252,7 +241,6 @@ export default {
   border: 1px solid #e2e8f0;
   border-radius: 0.25rem;
   background: #fff;
-  width: 80%;
 }
 .modal__title {
   margin: 0 2rem 0 0;

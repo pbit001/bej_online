@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DosareDeschise;
+use App\Models\IRDosar_LOG;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -231,4 +232,66 @@ class DosareDeschiseController extends Controller
         $del = DosareDeschise::where('Nr_Dosar', $id)->delete();
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise deleted.');
     }
+
+    /** DosareDeschiseIstoric */
+    public function DosareDeschiseIstoric($Nr_Dosare) {
+        $response = array();
+        $html = "<table id='DosareDeschiseIstoric' class='table table-bordered table-striped'>
+        <thead>
+        <th>Nr Dosar</th>
+        <th>Nume Debitor</th>
+        <th>Prenume Debitor</th>
+        <th>CNP/CUI</th>
+        <th>Adresa Debitor</th>        
+        <th>Nume Creditor</th>
+        <th>Adresa Creditor</th>
+        <th>Titlu Executoriu</th>
+        <th>Data Titlu Executoriu</th>
+        <th>Suma Totala Initiala (LEI)</th>         
+        <th>Suma Creditor Initiala (LEI)</th>
+        <th>Total BEJ Initial (LEI)</th>
+        <th>Suma Consemnata (LEI)</th>         
+        <th>Data Consemnare Suma</th>
+        <th>Suma Distribuita Creditor (LEI)</th>
+        <th>Suma Distribuita BEJ (LEI)</th>
+        <th>Data Interogare ANAF </th>
+        <th>Data Poprire Banca</th>
+        <th>Stadiu Dosar</th>
+        
+        </thead>";
+
+        $IRDosarLog = IRDosar_LOG::where('Nr_Dosar', $Nr_Dosare)->get();
+        foreach($IRDosarLog as $sigleLog):
+           
+            $html .= '<tr>';
+            $html .= '<td>'.$sigleLog->Nr_Dosar.'</td>';
+            $html .= '<td>'.$sigleLog->Nume_Debitor.'</td>';
+            $html .= '<td>'.$sigleLog->Prenume_Debitor.'</td>';
+            $html .= '<td>'.$sigleLog->CNP_CUI.'</td>';
+            $html .= '<td>'.$sigleLog->Adresa_Debitor.'</td>';
+            $html .= '<td>'.$sigleLog->Nume_Creditor.'</td>';
+            $html .= '<td>'.$sigleLog->Adresa_Creditor.'</td>';
+            $html .= '<td>'.$sigleLog->Titlu_Executoriu.'</td>';
+            $html .= '<td>'.$sigleLog->DataTitlu_Executoriu.'</td>';
+            $html .= '<td>'.$sigleLog->Suma_TotalaInitiala.'</td>';
+            $html .= '<td>'.$sigleLog->Suma_CreditorInitiala.'</td>';
+            $html .= '<td>'.$sigleLog->Total_BEJInitial.'</td>';
+            $html .= '<td>'.$sigleLog->Incasari_Totale.'</td>';
+            $html .= '<td>'.$sigleLog->Data_Incasare.'</td>';
+            $html .= '<td>'.$sigleLog->Suma_TrCreditor.'</td>';
+            $html .= '<td>'.$sigleLog->Suma_TrBEJ.'</td>';
+            $html .= '<td>'.$sigleLog->DataEmitere_Interogare.'</td>';
+            $html .= '<td>'.$sigleLog->Poprire_Conturi.'</td>';
+            $html .= '<td>'.$sigleLog->Stadiu_Dosar.'</td>';
+            $html .= '</tr>';
+
+        endforeach;
+
+        $html .= '</table>';
+        
+        $response['html'] = $html;
+        echo json_encode($response);
+        exit;
+    }
+
 }

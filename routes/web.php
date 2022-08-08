@@ -89,6 +89,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+Route::post('DosareDeschiseIstoric/{Nr_Dosare}', [DosareDeschiseController::class, 'DosareDeschiseIstoric'])
+    ->name('DosareDeschiseIstoric')
+    ->middleware('auth');
+    
+
+
 Route::get('ITM', [ITMController::class, 'index'])
     ->name('ITM')
     ->middleware('auth');
