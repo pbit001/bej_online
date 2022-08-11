@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\DosareDeschise;
 use App\Models\IRDosar_LOG;
+use App\Models\Notificari;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -69,48 +70,81 @@ class DosareDeschiseController extends Controller
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
-            'Judet_Debitor' => ['required'],
+            
             'Primarie_Debitor' => ['required'],
             'Nume_Creditor' => ['required'],
             'Adresa_Creditor' => ['required'],
-            'DataTitlu_Executoriu' => ['required'],
-            'Suma_CreditorInitiala' => ['required'],
+            
             'Taxa' => ['required'],
             'Cheltuieli' => ['required'],
         ]);
 
         $input = $request->all();
         
-        
+           
         $addedDosareDeschise = DosareDeschise::create([
             'Nr_Dosar'              => $input['Nr_Dosar'],
-            'Nume_Debitor'          => $input['Nume_Debitor'],
-            'Prenume_Debitor'       => $input['Prenume_Debitor'],        
-            'CNP_CUI'               => $input['CNP_CUI'],
-            'Adresa_Debitor'        => $input['Adresa_Debitor'], 
-            'Judet_Debitor'         => $input['Judet_Debitor'],
-            'Primarie_Debitor'      => $input['Primarie_Debitor'],
-            'CoDebitor_Girant'      => $input['CoDebitor_Girant'],
+            'Credit_Ipotecar'        => $input['Credit_Ipotecar'],
             'Nume_Creditor'         => $input['Nume_Creditor'],
             'Adresa_Creditor'       => $input['Adresa_Creditor'],
-            'Titlu_Executoriu'      => $input['Titlu_Executoriu'],
-            'DataTitlu_Executoriu'  => $input['DataTitlu_Executoriu'],
-            'Suma_CreditorInitiala' => $input['Suma_CreditorInitiala'],
-            'Judecatoria'           => $input['Judecatoria'],
-            'Procent_Onorariu'      => $input['Procent_Onorariu'],        
-            'Taxa'                  => $input['Taxa'],
-            'Cheltuieli'            => $input['Cheltuieli'],
-            'Data_Introducerii'     => date("Y.m.d"),
-            'Stadiu_Dosar'          => $input['Stadiu_Dosar'],
-            'Avans_Onorariu'        => $input['Avans_Onorariu'],
-            'ID_User'               => Auth::user()->id,
-            'Credit_Ipotecar'        => $input['Credit_Ipotecar'],
-            'Grant_Imobiliar'        => $input['Grant_Imobiliar'],
+            'Nume_Reprezentant' => $input['Nume_Reprezentant'],
+            'Adresa_Reprezentant' => $input['Adresa_Reprezentant'],
+            'Identificare_Reprezentant' => $input['Identificare_Reprezentant'],
+            'Creditor_Suplimentar' => $input['Creditor_Suplimentar'],
+            'Grant_Imobiliar' => $input['Grant_Imobiliar'],
+            'Nume_Debitor' => $input['Nume_Debitor'],
+            'Prenume_Debitor' => $input['Prenume_Debitor'],
+            'CNP_CUI' => $input['CNP_CUI'],
+            'Adresa_Debitor' => $input['Adresa_Debitor'],
+            'Debitor_Suplimentar' => $input['Debitor_Suplimentar'],
+
+            'Primarie_Debitor' => $input['Primarie_Debitor'],
+            'Obiect' => $input['Obiect'],
+            'Obiect_Suplimentar' => $input['Obiect_Suplimentar'],
+            'Titlu_Executoriu' => $input['Titlu_Executoriu'],
+            
+            'debit_variabil' => $input['debit_variabil'],
+            'Taxa' => $input['Taxa'],
+            'Taxa_Ad1' => $input['Taxa_Ad1'],
+            'Taxa_Ad2' => $input['Taxa_Ad2'],
+            'Taxa_Ad3' => $input['Taxa_Ad3'],
+            'Taxa_Ad4' => $input['Taxa_Ad4'],
+            
+            'Cheltuieli' => $input['Cheltuieli'],
+            'Stadiu_Dosar' => 'deschis',
 
         ]);
 
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise Inregistrare Dosar.');
+    }
+
+    /** DosareDeschiseNotificareStore  */
+    public function DosareDeschiseNotificareStore(Request $request)
+    {
+        
+        $request->validate([
+            'Nr_Dosar_1' => ['required'],
+            'ParteCare_Notifica' => ['required'],
+            'Date_ParteCareNotifica' => ['required'],
+            'Parte_Notificata' => ['required'],
+            'Date_ParteNotificata' => ['required'],
+            
+        ]);
+
+        $input = $request->all();
+        
+        $addedDosareDeschise = Notificari::create([
+            'Nr_Dosar'              => $input['Nr_Dosar_1'],
+            'ParteCare_Notifica'    => $input['ParteCare_Notifica'],
+            'Date_ParteCareNotifica' => $input['Date_ParteCareNotifica'],
+            'Parte_Notificata'       => $input['Parte_Notificata'],
+            'Date_ParteNotificata'   => $input['Date_ParteNotificata'],
+
+        ]);
+
+
+        return Redirect::route('DosareDeschise.index')->with('success', 'Notificare added!.');
     }
 
     /**
