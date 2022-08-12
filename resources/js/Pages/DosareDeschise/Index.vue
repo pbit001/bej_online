@@ -257,6 +257,15 @@ export default {
         'copy', 'csv', 'excel', 'pdf', 'print'
     ]
     });
+
+    $('#notificare').DataTable({
+      dom: 'Bfrtip',
+    buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+    ]
+    });
+
+    
   },
   watch: {
     form: {
