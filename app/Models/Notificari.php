@@ -9,6 +9,7 @@ class Notificari extends Model
 {
     protected $connection = 'mysql2';
     protected $table = 'ARTESTEXECUTOR_Notificari';
+    protected $primaryKey = 'ID';
     public $timestamps = false;
     use HasFactory;
 }

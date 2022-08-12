@@ -93,7 +93,18 @@ Route::post('DosareDeschiseIstoric/{Nr_Dosare}', [DosareDeschiseController::clas
     ->name('DosareDeschiseIstoric')
     ->middleware('auth');
 
-        
+Route::get('Notificari/{id}/edit', [DosareDeschiseController::class, 'NotificariEdit'])
+    ->name('Notificari.edit')
+    ->middleware('auth'); 
+
+Route::post('Notificari/{id}', [DosareDeschiseController::class, 'NotificariUpdate'])
+    ->name('Notificari.update')
+    ->middleware('auth');
+
+Route::delete('Notificari/{id}', [DosareDeschiseController::class, 'destroyNotificari'])
+    ->name('Notificari.destroy')
+    ->middleware('auth');
+            
 Route::post('DosareDeschiseNotificare', [DosareDeschiseController::class, 'DosareDeschiseNotificareStore'])
     ->name('DosareDeschiseNotificare')
     ->middleware('auth');

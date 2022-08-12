@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\DosareDeschise;
 use App\Models\IRDosar_LOG;
 use App\Models\Notificari;
@@ -18,9 +19,9 @@ class DosareDeschiseController extends Controller
      */
     public function index()
     {
-        
+
         return Inertia::render('DosareDeschise/Index', [
-            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar','DESC')->where('Stadiu_Dosar', 'deschis')->paginate(10)
+            'DosareDeschise' => DosareDeschise::orderBy('Nr_Dosar', 'DESC')->where('Stadiu_Dosar', 'deschis')->paginate(10)
                 ->through(fn ($DosareDeschise) => [
                     'id' => $DosareDeschise->id,
                     'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
@@ -44,6 +45,15 @@ class DosareDeschiseController extends Controller
                     'Stadiu_Dosar' => $DosareDeschise->Stadiu_Dosar,
                     'Suma_TotalaRamasa' => $DosareDeschise->Suma_TotalaRamasa,
                 ]),
+            'Notificari' => Notificari::orderBy('Nr_Dosar', 'DESC')->paginate(100)
+                ->through(fn ($Notificari) => [
+                    'Nr_Dosar'              => $Notificari['Nr_Dosar'],
+                    'ID'              => $Notificari['ID'],
+                    'ParteCare_Notifica'    => $Notificari['ParteCare_Notifica'],
+                    'Date_ParteCareNotifica' => $Notificari['Date_ParteCareNotifica'],
+                    'Parte_Notificata'       => $Notificari['Parte_Notificata'],
+                    'Date_ParteNotificata'   => $Notificari['Date_ParteNotificata'],
+                ]),
         ]);
     }
 
@@ -65,23 +75,23 @@ class DosareDeschiseController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
-            
+
             'Primarie_Debitor' => ['required'],
             'Nume_Creditor' => ['required'],
             'Adresa_Creditor' => ['required'],
-            
+
             'Taxa' => ['required'],
             'Cheltuieli' => ['required'],
         ]);
 
         $input = $request->all();
-        
-           
+
+
         $addedDosareDeschise = DosareDeschise::create([
             'Nr_Dosar'              => $input['Nr_Dosar'],
             'Credit_Ipotecar'        => $input['Credit_Ipotecar'],
@@ -102,14 +112,14 @@ class DosareDeschiseController extends Controller
             'Obiect' => $input['Obiect'],
             'Obiect_Suplimentar' => $input['Obiect_Suplimentar'],
             'Titlu_Executoriu' => $input['Titlu_Executoriu'],
-            
+
             'debit_variabil' => $input['debit_variabil'],
             'Taxa' => $input['Taxa'],
             'Taxa_Ad1' => $input['Taxa_Ad1'],
             'Taxa_Ad2' => $input['Taxa_Ad2'],
             'Taxa_Ad3' => $input['Taxa_Ad3'],
             'Taxa_Ad4' => $input['Taxa_Ad4'],
-            
+
             'Cheltuieli' => $input['Cheltuieli'],
             'Stadiu_Dosar' => 'deschis',
 
@@ -122,18 +132,18 @@ class DosareDeschiseController extends Controller
     /** DosareDeschiseNotificareStore  */
     public function DosareDeschiseNotificareStore(Request $request)
     {
-        
+
         $request->validate([
             'Nr_Dosar_1' => ['required'],
             'ParteCare_Notifica' => ['required'],
             'Date_ParteCareNotifica' => ['required'],
             'Parte_Notificata' => ['required'],
             'Date_ParteNotificata' => ['required'],
-            
+
         ]);
 
         $input = $request->all();
-        
+
         $addedDosareDeschise = Notificari::create([
             'Nr_Dosar'              => $input['Nr_Dosar_1'],
             'ParteCare_Notifica'    => $input['ParteCare_Notifica'],
@@ -203,6 +213,49 @@ class DosareDeschiseController extends Controller
         ]);
     }
 
+    /** NotificariEdit */
+    public function NotificariEdit($id)
+    {
+        $Notificari = Notificari::where('ID', $id)->first();
+        return Inertia::render('DosareDeschise/NotificariEdit', [
+            'Notificari' => [
+                'Nr_Dosar'              => $Notificari['Nr_Dosar'],
+                'ID'              => $Notificari['ID'],
+                'ParteCare_Notifica'    => $Notificari['ParteCare_Notifica'],
+                'Date_ParteCareNotifica' => $Notificari['Date_ParteCareNotifica'],
+                'Parte_Notificata'       => $Notificari['Parte_Notificata'],
+                'Date_ParteNotificata'   => $Notificari['Date_ParteNotificata'],
+            ],
+        ]);
+    }
+
+    /** NotificariUpdate */
+    public function NotificariUpdate(Request $request, $id)
+    {
+
+        $request->validate([
+            'Nr_Dosar' => ['required'],
+            'ParteCare_Notifica' => ['required'],
+            'Date_ParteCareNotifica' => ['required'],
+            'Parte_Notificata' => ['required'],
+            'Date_ParteNotificata' => ['required'],
+
+        ]);
+
+        $input = $request->all();
+        $Notificari = Notificari::where('ID', $id)->first();
+        
+        $Notificari->Nr_Dosar =  $input['Nr_Dosar'];
+        $Notificari->ParteCare_Notifica = $input['ParteCare_Notifica'];
+        $Notificari->Date_ParteCareNotifica = $input['Date_ParteCareNotifica'];
+        $Notificari->Parte_Notificata = $input['Parte_Notificata'];
+        $Notificari->Date_ParteNotificata = $input['Date_ParteNotificata'];
+        
+        $Notificari->save();
+
+        return Redirect::route('DosareDeschise.index')->with('success', 'Notificari Updated.');
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -229,11 +282,11 @@ class DosareDeschiseController extends Controller
 
         $input = $request->all();
         $DosareDeschise = DosareDeschise::where('Nr_Dosar', $id)->first();
-        
+
         $DosareDeschise->Nume_Debitor =  $input['Nume_Debitor'];
-        $DosareDeschise->Prenume_Debitor = $input['Prenume_Debitor'];        
+        $DosareDeschise->Prenume_Debitor = $input['Prenume_Debitor'];
         $DosareDeschise->CNP_CUI = $input['CNP_CUI'];
-        $DosareDeschise->Adresa_Debitor = $input['Adresa_Debitor']; 
+        $DosareDeschise->Adresa_Debitor = $input['Adresa_Debitor'];
         $DosareDeschise->Judet_Debitor = $input['Judet_Debitor'];
         $DosareDeschise->Primarie_Debitor = $input['Primarie_Debitor'];
         $DosareDeschise->CoDebitor_Girant = $input['CoDebitor_Girant'];
@@ -243,7 +296,7 @@ class DosareDeschiseController extends Controller
         $DosareDeschise->DataTitlu_Executoriu = $input['DataTitlu_Executoriu'];
         $DosareDeschise->Suma_CreditorInitiala = $input['Suma_CreditorInitiala'];
         $DosareDeschise->Judecatoria = $input['Judecatoria'];
-        $DosareDeschise->Procent_Onorariu = $input['Procent_Onorariu'];        
+        $DosareDeschise->Procent_Onorariu = $input['Procent_Onorariu'];
         $DosareDeschise->Taxa = $input['Taxa'];
         $DosareDeschise->Cheltuieli = $input['Cheltuieli'];
         $DosareDeschise->Stadiu_Dosar = $input['Stadiu_Dosar'];
@@ -267,8 +320,17 @@ class DosareDeschiseController extends Controller
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise deleted.');
     }
 
+    /** destroyNotificari */
+    public function destroyNotificari($id)
+    {
+        $del = Notificari::where('ID', $id)->delete();
+        return Redirect::route('DosareDeschise.index')->with('success', 'Notificari deleted.');
+    }
+
+
     /** DosareDeschiseIstoric */
-    public function DosareDeschiseIstoric($Nr_Dosare) {
+    public function DosareDeschiseIstoric($Nr_Dosare)
+    {
         $response = array();
         $html = "<table id='DosareDeschiseIstoric' class='table table-bordered table-striped'>
         <thead>
@@ -295,37 +357,36 @@ class DosareDeschiseController extends Controller
         </thead>";
 
         $IRDosarLog = IRDosar_LOG::where('Nr_Dosar', $Nr_Dosare)->get();
-        foreach($IRDosarLog as $sigleLog):
-           
+        foreach ($IRDosarLog as $sigleLog) :
+
             $html .= '<tr>';
-            $html .= '<td>'.$sigleLog->Nr_Dosar.'</td>';
-            $html .= '<td>'.$sigleLog->Nume_Debitor.'</td>';
-            $html .= '<td>'.$sigleLog->Prenume_Debitor.'</td>';
-            $html .= '<td>'.$sigleLog->CNP_CUI.'</td>';
-            $html .= '<td>'.$sigleLog->Adresa_Debitor.'</td>';
-            $html .= '<td>'.$sigleLog->Nume_Creditor.'</td>';
-            $html .= '<td>'.$sigleLog->Adresa_Creditor.'</td>';
-            $html .= '<td>'.$sigleLog->Titlu_Executoriu.'</td>';
-            $html .= '<td>'.$sigleLog->DataTitlu_Executoriu.'</td>';
-            $html .= '<td>'.$sigleLog->Suma_TotalaInitiala.'</td>';
-            $html .= '<td>'.$sigleLog->Suma_CreditorInitiala.'</td>';
-            $html .= '<td>'.$sigleLog->Total_BEJInitial.'</td>';
-            $html .= '<td>'.$sigleLog->Incasari_Totale.'</td>';
-            $html .= '<td>'.$sigleLog->Data_Incasare.'</td>';
-            $html .= '<td>'.$sigleLog->Suma_TrCreditor.'</td>';
-            $html .= '<td>'.$sigleLog->Suma_TrBEJ.'</td>';
-            $html .= '<td>'.$sigleLog->DataEmitere_Interogare.'</td>';
-            $html .= '<td>'.$sigleLog->Poprire_Conturi.'</td>';
-            $html .= '<td>'.$sigleLog->Stadiu_Dosar.'</td>';
+            $html .= '<td>' . $sigleLog->Nr_Dosar . '</td>';
+            $html .= '<td>' . $sigleLog->Nume_Debitor . '</td>';
+            $html .= '<td>' . $sigleLog->Prenume_Debitor . '</td>';
+            $html .= '<td>' . $sigleLog->CNP_CUI . '</td>';
+            $html .= '<td>' . $sigleLog->Adresa_Debitor . '</td>';
+            $html .= '<td>' . $sigleLog->Nume_Creditor . '</td>';
+            $html .= '<td>' . $sigleLog->Adresa_Creditor . '</td>';
+            $html .= '<td>' . $sigleLog->Titlu_Executoriu . '</td>';
+            $html .= '<td>' . $sigleLog->DataTitlu_Executoriu . '</td>';
+            $html .= '<td>' . $sigleLog->Suma_TotalaInitiala . '</td>';
+            $html .= '<td>' . $sigleLog->Suma_CreditorInitiala . '</td>';
+            $html .= '<td>' . $sigleLog->Total_BEJInitial . '</td>';
+            $html .= '<td>' . $sigleLog->Incasari_Totale . '</td>';
+            $html .= '<td>' . $sigleLog->Data_Incasare . '</td>';
+            $html .= '<td>' . $sigleLog->Suma_TrCreditor . '</td>';
+            $html .= '<td>' . $sigleLog->Suma_TrBEJ . '</td>';
+            $html .= '<td>' . $sigleLog->DataEmitere_Interogare . '</td>';
+            $html .= '<td>' . $sigleLog->Poprire_Conturi . '</td>';
+            $html .= '<td>' . $sigleLog->Stadiu_Dosar . '</td>';
             $html .= '</tr>';
 
         endforeach;
 
         $html .= '</table>';
-        
+
         $response['html'] = $html;
         echo json_encode($response);
         exit;
     }
-
 }

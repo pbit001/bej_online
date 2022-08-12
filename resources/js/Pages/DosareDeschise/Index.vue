@@ -135,6 +135,52 @@
       </table>
     </div>
     <pagination class="mt-6" :links="DosareDeschise.links" />
+
+    <h1 class="mb-8 mt-8 text-3xl font-bold" data-v-ac650a48="">Notificari</h1>
+    <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
+      <table class="w-full whitespace-nowrap table table-hover table-bordered" id="notificare">
+        <thead>
+          <tr class="text-left font-bold" >
+            <th class="pb-4 pt-6 px-6">Nr_Dosar</th>
+            <th class="pb-4 pt-6 px-6">ParteCare_Notifica</th>
+            <th class="pb-4 pt-6 px-6">Date_ParteCareNotifica</th>
+            <th class="pb-4 pt-6 px-6">Parte_Notificata </th>
+            <th class="pb-4 pt-6 px-6">Date_ParteNotificata</th>
+            <th class="pb-4 pt-6 px-6">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="notific in Notificari.data" :key="notific.Nr_Dosar" class="hover:bg-gray-100 focus-within:bg-gray-100">
+           
+            <td class="border-t">
+                {{ notific.Nr_Dosar }}
+            </td>
+            <td class="border-t">
+                {{ notific.ParteCare_Notifica }}
+            </td>
+            <td class="border-t">
+                {{ notific.Date_ParteCareNotifica }}
+            </td>
+            <td class="border-t">
+                {{ notific.Parte_Notificata }}
+            </td>
+            <td class="border-t">
+                {{ notific.Date_ParteNotificata }}
+            </td>
+            
+            <td class="border-t">
+                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/Notificari/${notific.ID}/edit`">
+                Edit
+              </Link>
+            </td>
+          </tr>
+          <tr v-if="DosareDeschise.data.length === 0">
+            <td class="px-6 py-4 border-t" colspan="4">No data found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
   <div>
@@ -199,6 +245,7 @@ export default {
   layout: Layout,
   props: {
     DosareDeschise: Object,
+    Notificari: Object,
   },
   data: () => ({
     showModal: false,
