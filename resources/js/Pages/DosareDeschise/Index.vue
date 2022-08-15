@@ -137,6 +137,13 @@
     <pagination class="mt-6" :links="DosareDeschise.links" />
 
     <h1 class="mb-8 mt-8 text-3xl font-bold" data-v-ac650a48="">Notificari</h1>
+    <div class="flex items-center justify-between mb-6">
+      
+      <Link class="btn-indigo" href="/DosareDeschise/create">
+        <span>Create</span>
+        <span class="hidden md:inline">&nbsp;notificari</span>
+      </Link>
+    </div>
     <div class="bg-white rounded-md shadow overflow-x-auto" style="padding: 10px;">
       <table class="w-full whitespace-nowrap table table-hover table-bordered" id="notificare">
         <thead>
