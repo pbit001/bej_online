@@ -8,7 +8,7 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden" style="float: left; margin-right: 15px;">
       <form @submit.prevent="store_notificari">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8"> 
-          <text-input v-model="form1.Nr_Dosar_1" :error="form1.errors.Nr_Dosar_1" class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
+          <text-input v-model="form1.Nr_Dosar" :error="form1.errors.Nr_Dosar" class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
           <h2 class="mt-6 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Partea Care Notifica</h2>
           <text-input v-model="form1.ParteCare_Notifica" :error="form1.errors.ParteCare_Notifica" class="pb-8 pr-6 w-full lg:w-1/1" label="ParteCare Notifica" />
           <text-input v-model="form1.Date_ParteCareNotifica" :error="form1.errors.Date_ParteCareNotifica" class="pb-8 pr-6 w-full lg:w-1/1" label="Date ParteCareNotifica" />
@@ -21,7 +21,7 @@
           
         </div>
         <div class="flex items-center justify-end px-8 py-4 bg-gray-50 border-t border-gray-100">
-          <loading-button :loading="form.processing" class="btn-indigo" type="submit">Inregistrare</loading-button>
+          <loading-button :loading="form1.processing" class="btn-indigo" type="submit">Inregistrare</loading-button>
         </div>
       </form>
     </div>
@@ -146,7 +146,7 @@ export default {
 
       }),
       form1: this.$inertia.form({
-        Nr_Dosar_1: null,
+        Nr_Dosar: null,
         ParteCare_Notifica: null,
         Date_ParteCareNotifica: null,
         Parte_Notificata: null,

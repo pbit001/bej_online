@@ -145,7 +145,7 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
-            'Nr_Dosar_1' => ['required'],
+            'Nr_Dosar' => ['unique:App\Models\Notificari,Nr_Dosar', 'required'], 
             'ParteCare_Notifica' => ['required'],
             'Date_ParteCareNotifica' => ['required'],
             'Parte_Notificata' => ['required'],
@@ -156,7 +156,7 @@ class DosareDeschiseController extends Controller
         $input = $request->all();
 
         $addedDosareDeschise = Notificari::create([
-            'Nr_Dosar'              => $input['Nr_Dosar_1'],
+            'Nr_Dosar'              => $input['Nr_Dosar'],
             'ParteCare_Notifica'    => $input['ParteCare_Notifica'],
             'Date_ParteCareNotifica' => $input['Date_ParteCareNotifica'],
             'Parte_Notificata'       => $input['Parte_Notificata'],
