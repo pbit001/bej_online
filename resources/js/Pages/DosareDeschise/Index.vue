@@ -46,28 +46,28 @@
               
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
                 Obs
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
                 Detalii
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
+              <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
                 {{ organization.Nr_Dosar }}
                 <icon v-if="organization.deleted_at" name="trash" class="flex-shrink-0 ml-2 w-3 h-3 fill-gray-400" />
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
                 {{ organization.Nume_Debitor }}
               </Link>
             </td>
             <td class="border-t">
-              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`" tabindex="-1">
+              <Link class="flex items-center px-6 py-4" :href="`/DosareDeschise/${organization.id}/edit`" tabindex="-1">
                 {{ organization.Prenume_Debitor }}
               </Link>
             </td>
@@ -123,7 +123,7 @@
                 {{ organization.Suma_TotalaRamasa }}
             </td>
             <td class="border-t">
-                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.Nr_Dosar}/edit`">
+                <Link class="flex items-center px-6 py-4 focus:text-indigo-500" :href="`/DosareDeschise/${organization.id}/edit`">
                 Edit
               </Link>
             </td>
@@ -137,7 +137,7 @@
     <pagination class="mt-6" :links="DosareDeschise.links" />
 
     <h1 class="mb-8 mt-8 text-3xl font-bold" data-v-ac650a48="">Notificari</h1>
-    <div class="flex items-center justify-between mb-6">p
+    <div class="flex items-center justify-between mb-6">
       
       <Link class="btn-indigo" href="/DosareDeschise/create">
         <span>Create</span>

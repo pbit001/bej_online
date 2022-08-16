@@ -66,7 +66,7 @@ class DosareDeschiseController extends Controller
     public function create()
     {
         $orderNumber = 0;
-        $lastOrderNumber = tbl_order::orderByDesc('order_no', 'desc')->limit(1)->get();
+        $lastOrderNumber = DosareDeschise::orderByDesc('Nr_Dosar', 'desc')->limit(1)->get();
         if (isset($lastOrderNumber[0]->order_no) && !empty($lastOrderNumber[0]->order_no)) {
             $orderNumber = $lastOrderNumber[0]->order_no;
         }
@@ -104,7 +104,7 @@ class DosareDeschiseController extends Controller
 
 
         $addedDosareDeschise = DosareDeschise::create([
-            'Nr_Dosar'              => $input['Nr_Dosar'],
+            'Nr_Dosar'              => rand(),
             'Credit_Ipotecar'        => $input['Credit_Ipotecar'],
             'Nume_Creditor'         => $input['Nume_Creditor'],
             'Adresa_Creditor'       => $input['Adresa_Creditor'],
@@ -135,6 +135,10 @@ class DosareDeschiseController extends Controller
             'Stadiu_Dosar' => 'deschis',
 
         ]);
+
+        $DosarUpdate = DosareDeschise::where('id', $addedDosareDeschise->id)->first();        
+        $DosarUpdate->Nr_Dosar = $addedDosareDeschise->id.'/'.date("Y");
+        $DosarUpdate->save();
 
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise Inregistrare Dosar.');
@@ -187,9 +191,10 @@ class DosareDeschiseController extends Controller
      */
     public function edit($id)
     {
-        $DosareDeschise = DosareDeschise::where('Nr_Dosar', $id)->first();
+        $DosareDeschise = DosareDeschise::where('id', $id)->first();
         return Inertia::render('DosareDeschise/Edit', [
             'DosareDeschise' => [
+                'id' => $DosareDeschise->id,
                 'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
                 'Nume_Debitor' => $DosareDeschise->Nume_Debitor,
                 'Prenume_Debitor' => $DosareDeschise->Prenume_Debitor,
@@ -292,7 +297,7 @@ class DosareDeschiseController extends Controller
         ]);
 
         $input = $request->all();
-        $DosareDeschise = DosareDeschise::where('Nr_Dosar', $id)->first();
+        $DosareDeschise = DosareDeschise::where('id', $id)->first();
 
         $DosareDeschise->Nume_Debitor =  $input['Nume_Debitor'];
         $DosareDeschise->Prenume_Debitor = $input['Prenume_Debitor'];
@@ -327,7 +332,7 @@ class DosareDeschiseController extends Controller
      */
     public function destroy($id)
     {
-        $del = DosareDeschise::where('Nr_Dosar', $id)->delete();
+        $del = DosareDeschise::where('id', $id)->delete();
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise deleted.');
     }
 

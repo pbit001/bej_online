@@ -143,16 +143,16 @@ export default {
   },
   methods: {
     update() {
-      this.form.put(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}`)
+      this.form.put(`/DosareDeschise/${this.DosareDeschise.id}`)
     },
     destroy() {
       if (confirm('Are you sure you want to delete this Dosare Deschise?')) {
-        this.$inertia.delete(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}`)
+        this.$inertia.delete(`/DosareDeschise/${this.DosareDeschise.id}`)
       }
     },
     restore() {
       if (confirm('Are you sure you want to restore this Dosare Deschise?')) {
-        this.$inertia.put(`/DosareDeschise/${this.DosareDeschise.Nr_Dosar}/restore`)
+        this.$inertia.put(`/DosareDeschise/${this.DosareDeschise.id}/restore`)
       }
     },
   },
