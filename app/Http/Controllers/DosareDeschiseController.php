@@ -89,15 +89,13 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
-            'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar'], 
+            'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar', 'required'], 
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
-
             'Primarie_Debitor' => ['required'],
             'Nume_Creditor' => ['required'],
             'Adresa_Creditor' => ['required'],
-
             'Taxa' => ['required'],
             'Cheltuieli' => ['required'],
         ]);
