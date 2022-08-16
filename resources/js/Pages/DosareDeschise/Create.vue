@@ -108,6 +108,9 @@ export default {
     TextInput,
     NumberInput,
   },
+  props: {
+    NewOrder: Object,
+  },
   layout: Layout,
   remember: 'form',
   data() {
@@ -151,6 +154,9 @@ export default {
 
       }),
     }
+  },
+  mounted(){
+    console.log(this.NewOrder);
   },
   methods: {
     store() {

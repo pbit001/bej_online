@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DosareDeschise;
 use App\Models\IRDosar_LOG;
 use App\Models\Notificari;
+use App\Models\tbl_order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
@@ -64,7 +65,18 @@ class DosareDeschiseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('DosareDeschise/Create');
+        $orderNumber = 0;
+        $lastOrderNumber = tbl_order::orderByDesc('order_no', 'desc')->limit(1)->get();
+        if (isset($lastOrderNumber[0]->order_no) && !empty($lastOrderNumber[0]->order_no)) {
+            $orderNumber = $lastOrderNumber[0]->order_no;
+        }
+        $newOrder = $orderNumber + 1;
+
+        return Inertia::render('DosareDeschise/Create',  [
+            'NewOrder' => [
+                'newOrder' => $newOrder,
+            ]
+        ],);
     }
 
     /**
@@ -77,6 +89,7 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
+            'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar'], 
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
@@ -244,13 +257,13 @@ class DosareDeschiseController extends Controller
 
         $input = $request->all();
         $Notificari = Notificari::where('ID', $id)->first();
-        
+
         $Notificari->Nr_Dosar =  $input['Nr_Dosar'];
         $Notificari->ParteCare_Notifica = $input['ParteCare_Notifica'];
         $Notificari->Date_ParteCareNotifica = $input['Date_ParteCareNotifica'];
         $Notificari->Parte_Notificata = $input['Parte_Notificata'];
         $Notificari->Date_ParteNotificata = $input['Date_ParteNotificata'];
-        
+
         $Notificari->save();
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Notificari Updated.');

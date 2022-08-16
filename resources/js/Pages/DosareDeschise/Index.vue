@@ -137,7 +137,7 @@
     <pagination class="mt-6" :links="DosareDeschise.links" />
 
     <h1 class="mb-8 mt-8 text-3xl font-bold" data-v-ac650a48="">Notificari</h1>
-    <div class="flex items-center justify-between mb-6">
+    <div class="flex items-center justify-between mb-6">p
       
       <Link class="btn-indigo" href="/DosareDeschise/create">
         <span>Create</span>
