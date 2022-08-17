@@ -10,74 +10,60 @@
     <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
       <form @submit.prevent="update">
         <div class="flex flex-wrap -mb-8 -mr-6 p-8">
+        <text-input v-model="form.Nr_Dosar" :error="form.errors.Nr_Dosar" readonly class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
         <div class="pb-8 pr-6 w-full lg:w-1/2">
           <label class="form-label" for="text-Credit_Ipotecar">BIFATI PENTRU CONTRACT CU CREDIT IPOTECAR</label>
-          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Credit_Ipotecar" true-value="yes" false-value="no" number >
-          
+          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Credit_Ipotecar" true-value="yes" false-value="no" number @click="checkFirstCheckbox">
         </div>
+        
+
+        <h2 class="mt-6 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Demo Creditor</h2>
+        <text-input v-model="form.Nume_Creditor" :error="form.errors.Nume_Creditor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Creditor" />
+        <text-input v-model="form.Adresa_Creditor" :error="form.errors.Adresa_Creditor" class="pb-8 pr-6 w-full lg:w-1/2" label="Adresa Creditor" />
+
+        <h2 class="mt-6 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Date De Identificare</h2>
+        <text-input v-model="form.Nume_Reprezentant" :error="form.errors.Nume_Reprezentant" class="pb-8 pr-6 w-full lg:w-1/2" label="NUME / DENUMIRE REPREZENTANT" />
+        <text-input v-model="form.Adresa_Reprezentant" :error="form.errors.Adresa_Reprezentant" class="pb-8 pr-6 w-full lg:w-1/2" label="ADRESA / SEDIU REPREZENTANT" />
+        <text-input v-model="form.Identificare_Reprezentant" :error="form.errors.Identificare_Reprezentant" class="pb-8 pr-6 w-full lg:w-1/1" label="DATE DE IDENTIFICARE REPREZENTANT" />
+        <text-input v-model="form.Creditor_Suplimentar" :error="form.errors.Creditor_Suplimentar" class="pb-8 pr-6 w-full lg:w-1/2" label="Detalii Creditori Suplimentari" />
+
+        <h2 class="mt-12 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Date Debitor</h2>
         <div class="pb-8 pr-6 w-full lg:w-1/2">
-          <label class="form-label" for="text-Credit_Ipotecar">BIFATI PENTRU GARANT IMOBILIAR</label>
-          <input id="text-Credit_Ipotecar" type="checkbox" v-model="form.Grant_Imobiliar" true-value="yes" false-value="no" number>
+          <label class="form-label" for="text-Grant_Imobiliar">BIFATI PENTRU GARANT IMOBILIAR</label>
+          <input id="text-Grant_Imobiliar" type="checkbox" v-model="form.Grant_Imobiliar" true-value="yes" false-value="no" number @click="checkSecondCheckbox">
           
         </div>
-         
-          <text-input v-model="form.Nr_Dosar" :error="form.errors.Nr_Dosar" class="pb-8 pr-6 w-full lg:w-1/2" label="Nr. Dosar" />
-          <text-input v-model="form.Nume_Debitor" :error="form.errors.Nume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Debitor" />
-          <text-input v-model="form.Prenume_Debitor" :error="form.errors.Prenume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Prenume Debitor" />
-          <number-input v-model="form.CNP_CUI" :error="form.errors.CNP_CUI" class="pb-8 pr-6 w-full lg:w-1/2" label="CNP/CUI Debitor" />
-          <text-input v-model="form.Adresa_Debitor" :error="form.errors.Adresa_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Adresa Debitor" />
-          <text-input v-model="form.Judet_Debitor" :error="form.errors.Judet_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Judet Debitor" />
-          <text-input v-model="form.Primarie_Debitor" :error="form.errors.Primarie_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Primarie Debitor" />
-          <select-input v-model="form.Judecatoria" :error="form.errors.Judecatoria" class="pb-8 pr-6 w-full lg:w-1/2" label="Judecatorie Debitor">
-            <option :value="null" />
-            <option value="ORADEA">ORADEA</option> 
-            <option value="ALESD">ALESD</option> 
-            <option value="BEIUS">BEIUS</option> 
-            <option value="MARGHITA">MARGHITA</option> 
-            <option value="ARAD">ARAD</option> 
-            <option value="CHISINEU-CRIS">CHISINEU-CRIS</option> 
-            <option value="GURAHONT">GURAHONT</option> 
-            <option value="INEU">INEU</option> 
-            <option value="LIPOVA">LIPOVA</option>
-            <option value="TIMISOARA">TIMISOARA</option>
-            <option value="DETA">DETA</option>
-            <option value="FAGET">FAGET</option>
-            <option value="LUGOJ">LUGOJ</option>
-            <option value="SANICOLAUL MARE">SANICOLAUL MARE</option>
-            <option value="CARANSEBES">CARANSEBES</option>
-            <option value="MOLDOVA-NOUA">MOLDOVA-NOUA</option>
-            <option value="ORAVITA">ORAVITA</option>
-            <option value="RESITA">RESITA</option>
-          </select-input>
-          <text-input v-model="form.Nume_Creditor" :error="form.errors.Nume_Creditor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Creditor" />
-          <text-input v-model="form.Adresa_Creditor" :error="form.errors.Adresa_Creditor" class="pb-8 pr-6 w-full lg:w-1/2" label="Adresa Creditor" />
-          <select-input v-model="form.Titlu_Executoriu" :error="form.errors.Titlu_Executoriu" class="pb-8 pr-6 w-full lg:w-1/2" label="Titlu Executoriu">
+        <text-input v-model="form.Nume_Debitor" :error="form.errors.Nume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Nume Debitor" />
+        <text-input v-model="form.Prenume_Debitor" :error="form.errors.Prenume_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Prenume Debitor" />.
+        <number-input v-model="form.CNP_CUI" :error="form.errors.CNP_CUI" class="pb-8 pr-6 w-full lg:w-1/2" label="CNP/CUI Debitor" />
+        <text-input v-model="form.Adresa_Debitor" :error="form.errors.Adresa_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Adresa Debitor" />
+        <text-input v-model="form.Debitor_Suplimentar" :error="form.errors.Debitor_Suplimentar" class="pb-8 pr-6 w-full lg:w-1/2" label="Detalii Debitori Suplimentari" />
+        <text-input v-model="form.Primarie_Debitor" :error="form.errors.Primarie_Debitor" class="pb-8 pr-6 w-full lg:w-1/2" label="Primarie Debitor" />
+
+
+        <h2 class="mt-12 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Obiect</h2>
+        <text-input v-model="form.Obiect" :error="form.errors.Obiect" class="pb-8 pr-6 w-full lg:w-1/2" label="Obiect" />
+        <text-input v-model="form.Obiect_Suplimentar" :error="form.errors.Obiect_Suplimentar" class="pb-8 pr-6 w-full lg:w-1/2" label="Detalii Obiect Suplimentar" />
+        <select-input v-model="form.Titlu_Executoriu" :error="form.errors.Titlu_Executoriu" class="pb-8 pr-6 w-full lg:w-1/2" label="Titlu Executoriu">
             <option value="-">Alege</option>
             <option value="Bilet la Ordin">Bilet la Ordin</option>
           </select-input>
-          <text-input v-model="form.DataTitlu_Executoriu" :error="form.errors.DataTitlu_Executoriu" class="pb-8 pr-6 w-full lg:w-1/2" label="Data Titlu Executoriu" />
-          <number-input v-model="form.Suma_CreditorInitiala" :error="form.errors.Suma_CreditorInitiala" class="pb-8 pr-6 w-full lg:w-1/2" label="Debit Creditor" />
-          <number-input v-model="form.Taxa" :error="form.errors.Taxa" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Juridica" />
-          <number-input v-model="form.Cheltuieli" :error="form.errors.Cheltuieli" class="pb-8 pr-6 w-full lg:w-1/2" label="Cheltuieli(fara onorariu):" />
-          <select-input v-model="form.Procent_Onorariu" :error="form.errors.Procent_Onorariu" class="pb-8 pr-6 w-full lg:w-1/2" label="Procent Onorariu">
-            <option value="0">0</option> 
-            <option value="1">1</option> 
-            <option value="2">2 </option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-          </select-input>
-          <number-input v-model="form.Avans_Onorariu" :error="form.errors.Avans_Onorariu" class="pb-8 pr-6 w-full lg:w-1/2" label="Avans Onorariu" />
-          <select-input v-model="form.Stadiu_Dosar" :error="form.errors.Stadiu_Dosar" class="pb-8 pr-6 w-full lg:w-1/2" label="Stadiu Dosar">
-            <option value="Deschis">Deschis</option> 
-            <option value="Inchis">Inchis</option> 
-          </select-input>
-          <text-input v-model="form.CoDebitor_Girant" :error="form.errors.CoDebitor_Girant" class="pb-8 pr-6 w-full lg:w-1/2" label="CoDebitor Girant" />
+          <text-input v-model="form.Acte" :error="form.errors.Acte" class="pb-8 pr-6 w-full lg:w-1/2" label="ACTE ADITIONALE" />
+        
+        <h2 class="mt-12 font-bold text-2xl" style="width: 100%; margin-bottom: 15px;">Financiar</h2> 
+        <text-input v-model="form.Suma_TotalaInitiala" :error="form.errors.Suma_TotalaInitiala" class="pb-8 pr-6 w-full lg:w-1/2" label="DEBIT RESTANT" />
+        <div class="pb-8 pr-6 w-full lg:w-1/2">
+          <label class="form-label" for="text-debit_variabil">BIFA DEBIT VARIABIL</label>
+          <input id="text-debit_variabil" type="checkbox" v-model="form.debit_variabil" true-value="yes" false-value="no" number @click="checkThirdCheckbox">
+        </div>
+        <number-input v-model="form.Taxa" :error="form.errors.Taxa" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Juridica" />
+        <number-input v-model="form.Taxa_Ad1" :error="form.errors.Taxa_Ad1" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Additional 1" />
+        <number-input v-model="form.Taxa_Ad2" :error="form.errors.Taxa_Ad2" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Additional 2" />
+        <number-input v-model="form.Taxa_Ad3" :error="form.errors.Taxa_Ad3" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Additional 3" />
+        <number-input v-model="form.Taxa_Ad4" :error="form.errors.Taxa_Ad4" class="pb-8 pr-6 w-full lg:w-1/2" label="Taxa Additional 4" />
+        <number-input v-model="form.Onorariu" :error="form.errors.Onorariu" class="pb-8 pr-6 w-full lg:w-1/2" label="ONORARIU (PROCENT SAU INTRODUS DIRECT)" />
+        <number-input v-model="form.Cheltuieli" :error="form.errors.Cheltuieli" class="pb-8 pr-6 w-full lg:w-1/2" label="Cheltuieli(fara onorariu)" />
+
         </div>
         <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
         <button  class="text-red-600 hover:underline" tabindex="-1" type="button" @click="destroy">Delete</button>
@@ -118,26 +104,31 @@ export default {
     return {
       form: this.$inertia.form({
         Nr_Dosar: this.DosareDeschise.Nr_Dosar,
+        Credit_Ipotecar: this.DosareDeschise.Credit_Ipotecar,
+        Nume_Creditor: this.DosareDeschise.Nume_Creditor,
+        Adresa_Creditor: this.DosareDeschise.Adresa_Creditor,
+        Nume_Reprezentant: this.DosareDeschise.Nume_Reprezentant,
+        Adresa_Reprezentant: this.DosareDeschise.Adresa_Reprezentant,
+        Identificare_Reprezentant: this.DosareDeschise.Identificare_Reprezentant,
+        Creditor_Suplimentar: this.DosareDeschise.Creditor_Suplimentar,
+        Grant_Imobiliar: this.DosareDeschise.Grant_Imobiliar,
         Nume_Debitor: this.DosareDeschise.Nume_Debitor,
         Prenume_Debitor: this.DosareDeschise.Prenume_Debitor,
         CNP_CUI: this.DosareDeschise.CNP_CUI,
         Adresa_Debitor: this.DosareDeschise.Adresa_Debitor,
-        Judet_Debitor: this.DosareDeschise.Judet_Debitor,
+        Debitor_Suplimentar: this.DosareDeschise.Debitor_Suplimentar,
         Primarie_Debitor: this.DosareDeschise.Primarie_Debitor,
-        Judecatoria: this.DosareDeschise.Judecatoria,
-        Nume_Creditor: this.DosareDeschise.Nume_Creditor,
-        Adresa_Creditor: this.DosareDeschise.Adresa_Creditor,
+        Obiect: this.DosareDeschise.Obiect,
+        Obiect_Suplimentar: this.DosareDeschise.Obiect_Suplimentar,        
         Titlu_Executoriu: this.DosareDeschise.Titlu_Executoriu,
-        DataTitlu_Executoriu: this.DosareDeschise.DataTitlu_Executoriu,
-        Suma_CreditorInitiala: this.DosareDeschise.Suma_CreditorInitiala,
+
+        debit_variabil: this.DosareDeschise.debit_variabil,
         Taxa: this.DosareDeschise.Taxa,
+        Taxa_Ad1: this.DosareDeschise.Taxa_Ad1,
+        Taxa_Ad2: this.DosareDeschise.Taxa_Ad2,
+        Taxa_Ad3: this.DosareDeschise.Taxa_Ad3,
+        Taxa_Ad4: this.DosareDeschise.Taxa_Ad4,
         Cheltuieli: this.DosareDeschise.Cheltuieli,
-        Procent_Onorariu: this.DosareDeschise.Procent_Onorariu,
-        Avans_Onorariu: this.DosareDeschise.Avans_Onorariu,        
-        Stadiu_Dosar: this.DosareDeschise.Stadiu_Dosar,
-        CoDebitor_Girant: this.DosareDeschise.CoDebitor_Girant,
-        Credit_Ipotecar: this.DosareDeschise.Credit_Ipotecar,
-        Grant_Imobiliar: this.DosareDeschise.Grant_Imobiliar,
       }),
     }
   },

@@ -89,7 +89,7 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
-            'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar', 'required'], 
+            //'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar', 'required'],
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
@@ -136,8 +136,8 @@ class DosareDeschiseController extends Controller
 
         ]);
 
-        $DosarUpdate = DosareDeschise::where('id', $addedDosareDeschise->id)->first();        
-        $DosarUpdate->Nr_Dosar = $addedDosareDeschise->id.'/'.date("Y");
+        $DosarUpdate = DosareDeschise::where('id', $addedDosareDeschise->id)->first();
+        $DosarUpdate->Nr_Dosar = $addedDosareDeschise->id . '/' . date("Y");
         $DosarUpdate->save();
 
 
@@ -149,7 +149,6 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
-            'Nr_Dosar' => ['unique:App\Models\Notificari,Nr_Dosar', 'required'], 
             'ParteCare_Notifica' => ['required'],
             'Date_ParteCareNotifica' => ['required'],
             'Parte_Notificata' => ['required'],
@@ -160,7 +159,7 @@ class DosareDeschiseController extends Controller
         $input = $request->all();
 
         $addedDosareDeschise = Notificari::create([
-            
+
             'ParteCare_Notifica'    => $input['ParteCare_Notifica'],
             'Date_ParteCareNotifica' => $input['Date_ParteCareNotifica'],
             'Parte_Notificata'       => $input['Parte_Notificata'],
@@ -168,8 +167,8 @@ class DosareDeschiseController extends Controller
 
         ]);
 
-        $Notificari = Notificari::where('ID', $addedDosareDeschise->ID)->first();        
-        $Notificari->Nr_Dosar = $Notificari->ID.'/'.date("Y");
+        $Notificari = Notificari::where('ID', $addedDosareDeschise->ID)->first();
+        $Notificari->Nr_Dosar = $Notificari->ID . '/' . date("Y");
         $Notificari->save();
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Notificare added!.');
@@ -199,35 +198,33 @@ class DosareDeschiseController extends Controller
             'DosareDeschise' => [
                 'id' => $DosareDeschise->id,
                 'Nr_Dosar' => $DosareDeschise->Nr_Dosar,
+                'Credit_Ipotecar'        => $DosareDeschise->Credit_Ipotecar,
+                'Nume_Creditor'         => $DosareDeschise->Nume_Creditor,
+                'Adresa_Creditor'       => $DosareDeschise->Adresa_Creditor,
+                'Nume_Reprezentant' => $DosareDeschise->Nume_Reprezentant,
+                'Adresa_Reprezentant' => $DosareDeschise->Adresa_Reprezentant,
+                'Identificare_Reprezentant' => $DosareDeschise->Identificare_Reprezentant,
+                'Creditor_Suplimentar' => $DosareDeschise->Creditor_Suplimentar,
+                'Grant_Imobiliar' => $DosareDeschise->Grant_Imobiliar,
                 'Nume_Debitor' => $DosareDeschise->Nume_Debitor,
                 'Prenume_Debitor' => $DosareDeschise->Prenume_Debitor,
                 'CNP_CUI' => $DosareDeschise->CNP_CUI,
                 'Adresa_Debitor' => $DosareDeschise->Adresa_Debitor,
-                'Nume_Creditor' => $DosareDeschise->Nume_Creditor,
-                'Adresa_Creditor' => $DosareDeschise->Adresa_Creditor,
-                'Titlu_Executoriu' => $DosareDeschise->Titlu_Executoriu,
-                'DataTitlu_Executoriu' => $DosareDeschise->DataTitlu_Executoriu,
-                'Suma_TotalaInitiala' => $DosareDeschise->Suma_TotalaInitiala,
-                'Suma_CreditorInitiala' => $DosareDeschise->Suma_CreditorInitiala,
-                'Total_BEJInitial' => $DosareDeschise->Total_BEJInitial,
-                'Incasari_Totale' => $DosareDeschise->Incasari_Totale,
-                'Data_Incasare' => $DosareDeschise->Data_Incasare,
-                'DataEmitere_Interogare' => $DosareDeschise->DataEmitere_Interogare,
-                'Suma_TrCreditor' => $DosareDeschise->Suma_TrCreditor,
-                'Suma_TrBEJ' => $DosareDeschise->Suma_TrBEJ,
-                'Poprire_Conturi' => $DosareDeschise->Poprire_Conturi,
-                'Stadiu_Dosar' => $DosareDeschise->Stadiu_Dosar,
-                'Suma_TotalaRamasa' => $DosareDeschise->Suma_TotalaRamasa,
-                'Judet_Debitor' => $DosareDeschise->Judet_Debitor,
+                'Debitor_Suplimentar' => $DosareDeschise->Debitor_Suplimentar,
+
                 'Primarie_Debitor' => $DosareDeschise->Primarie_Debitor,
-                'Judecatoria' => $DosareDeschise->Judecatoria,
+                'Obiect' => $DosareDeschise->Obiect,
+                'Obiect_Suplimentar' => $DosareDeschise->Obiect_Suplimentar,
+                'Titlu_Executoriu' => $DosareDeschise->Titlu_Executoriu,
+
+                'debit_variabil' => $DosareDeschise->debit_variabil,
                 'Taxa' => $DosareDeschise->Taxa,
+                'Taxa_Ad1' => $DosareDeschise->Taxa_Ad1,
+                'Taxa_Ad2' => $DosareDeschise->Taxa_Ad2,
+                'Taxa_Ad3' => $DosareDeschise->Taxa_Ad3,
+                'Taxa_Ad4' => $DosareDeschise->Taxa_Ad4,
+
                 'Cheltuieli' => $DosareDeschise->Cheltuieli,
-                'Procent_Onorariu' => $DosareDeschise->Procent_Onorariu,
-                'Avans_Onorariu' => $DosareDeschise->Avans_Onorariu,
-                'CoDebitor_Girant' => $DosareDeschise->CoDebitor_Girant,
-                'Credit_Ipotecar' => $DosareDeschise->Credit_Ipotecar,
-                'Grant_Imobiliar' => $DosareDeschise->Grant_Imobiliar,
             ],
         ]);
     }
@@ -253,7 +250,6 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
-            'Nr_Dosar' => ['required'],
             'ParteCare_Notifica' => ['required'],
             'Date_ParteCareNotifica' => ['required'],
             'Parte_Notificata' => ['required'],
@@ -264,7 +260,6 @@ class DosareDeschiseController extends Controller
         $input = $request->all();
         $Notificari = Notificari::where('ID', $id)->first();
 
-        $Notificari->Nr_Dosar =  $input['Nr_Dosar'];
         $Notificari->ParteCare_Notifica = $input['ParteCare_Notifica'];
         $Notificari->Date_ParteCareNotifica = $input['Date_ParteCareNotifica'];
         $Notificari->Parte_Notificata = $input['Parte_Notificata'];
@@ -286,15 +281,13 @@ class DosareDeschiseController extends Controller
     {
 
         $request->validate([
+            //'Nr_Dosar' => ['unique:App\Models\DosareDeschise,Nr_Dosar', 'required'],
             'Nume_Debitor' => ['required'],
             'CNP_CUI' => ['required'],
             'Adresa_Debitor' => ['required'],
-            'Judet_Debitor' => ['required'],
             'Primarie_Debitor' => ['required'],
             'Nume_Creditor' => ['required'],
             'Adresa_Creditor' => ['required'],
-            'DataTitlu_Executoriu' => ['required'],
-            'Suma_CreditorInitiala' => ['required'],
             'Taxa' => ['required'],
             'Cheltuieli' => ['required'],
         ]);
@@ -302,26 +295,35 @@ class DosareDeschiseController extends Controller
         $input = $request->all();
         $DosareDeschise = DosareDeschise::where('id', $id)->first();
 
-        $DosareDeschise->Nume_Debitor =  $input['Nume_Debitor'];
+        $DosareDeschise->Credit_Ipotecar       = $input['Credit_Ipotecar'];
+        $DosareDeschise->Nume_Creditor        = $input['Nume_Creditor'];
+        $DosareDeschise->Adresa_Creditor      = $input['Adresa_Creditor'];
+        $DosareDeschise->Nume_Reprezentant = $input['Nume_Reprezentant'];
+        $DosareDeschise->Adresa_Reprezentant = $input['Adresa_Reprezentant'];
+        $DosareDeschise->Identificare_Reprezentant = $input['Identificare_Reprezentant'];
+        $DosareDeschise->Creditor_Suplimentar = $input['Creditor_Suplimentar'];
+        $DosareDeschise->Grant_Imobiliar = $input['Grant_Imobiliar'];
+        $DosareDeschise->Nume_Debitor = $input['Nume_Debitor'];
         $DosareDeschise->Prenume_Debitor = $input['Prenume_Debitor'];
         $DosareDeschise->CNP_CUI = $input['CNP_CUI'];
         $DosareDeschise->Adresa_Debitor = $input['Adresa_Debitor'];
-        $DosareDeschise->Judet_Debitor = $input['Judet_Debitor'];
+        $DosareDeschise->Debitor_Suplimentar = $input['Debitor_Suplimentar'];
+
         $DosareDeschise->Primarie_Debitor = $input['Primarie_Debitor'];
-        $DosareDeschise->CoDebitor_Girant = $input['CoDebitor_Girant'];
-        $DosareDeschise->Nume_Creditor = $input['Nume_Creditor'];
-        $DosareDeschise->Adresa_Creditor = $input['Adresa_Creditor'];
+        $DosareDeschise->Obiect = $input['Obiect'];
+        $DosareDeschise->Obiect_Suplimentar = $input['Obiect_Suplimentar'];
         $DosareDeschise->Titlu_Executoriu = $input['Titlu_Executoriu'];
-        $DosareDeschise->DataTitlu_Executoriu = $input['DataTitlu_Executoriu'];
-        $DosareDeschise->Suma_CreditorInitiala = $input['Suma_CreditorInitiala'];
-        $DosareDeschise->Judecatoria = $input['Judecatoria'];
-        $DosareDeschise->Procent_Onorariu = $input['Procent_Onorariu'];
+
+        $DosareDeschise->debit_variabil = $input['debit_variabil'];
         $DosareDeschise->Taxa = $input['Taxa'];
+        $DosareDeschise->Taxa_Ad1 = $input['Taxa_Ad1'];
+        $DosareDeschise->Taxa_Ad2 = $input['Taxa_Ad2'];
+        $DosareDeschise->Taxa_Ad3 = $input['Taxa_Ad3'];
+        $DosareDeschise->Taxa_Ad4 = $input['Taxa_Ad4'];
+
         $DosareDeschise->Cheltuieli = $input['Cheltuieli'];
-        $DosareDeschise->Stadiu_Dosar = $input['Stadiu_Dosar'];
-        $DosareDeschise->Avans_Onorariu = $input['Avans_Onorariu'];
-        $DosareDeschise->Credit_Ipotecar = $input['Credit_Ipotecar'];
-        $DosareDeschise->Grant_Imobiliar = $input['Grant_Imobiliar'];
+
+
         $DosareDeschise->save();
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Dosare Deschise Inregistrare Dosar updated.');
