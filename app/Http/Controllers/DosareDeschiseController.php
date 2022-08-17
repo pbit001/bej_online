@@ -160,7 +160,7 @@ class DosareDeschiseController extends Controller
         $input = $request->all();
 
         $addedDosareDeschise = Notificari::create([
-            'Nr_Dosar'              => $input['Nr_Dosar'],
+            
             'ParteCare_Notifica'    => $input['ParteCare_Notifica'],
             'Date_ParteCareNotifica' => $input['Date_ParteCareNotifica'],
             'Parte_Notificata'       => $input['Parte_Notificata'],
@@ -168,6 +168,9 @@ class DosareDeschiseController extends Controller
 
         ]);
 
+        $Notificari = Notificari::where('ID', $addedDosareDeschise->ID)->first();        
+        $Notificari->Nr_Dosar = $Notificari->ID.'/'.date("Y");
+        $Notificari->save();
 
         return Redirect::route('DosareDeschise.index')->with('success', 'Notificare added!.');
     }
